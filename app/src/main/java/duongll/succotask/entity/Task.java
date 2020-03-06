@@ -1,4 +1,4 @@
-package duongll.entity;
+package duongll.succotask.entity;
 
 
 public class Task {
