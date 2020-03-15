@@ -1,6 +1,8 @@
 package duongll.succotask.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private Long id;
 
@@ -16,7 +18,7 @@ public class User {
 
     private boolean isActive;
 
-    private Long teamId;
+    private Team team;
 
     public String getUsername() {
         return username;
@@ -74,11 +76,11 @@ public class User {
         isActive = active;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeamId() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

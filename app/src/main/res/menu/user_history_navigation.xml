@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_user_history_date"
+        android:icon="@drawable/ic_calendar_today_24dp"
+        android:title="Filter by Date" />
+
+    <item
+        android:id="@+id/navigation_user_history_status"
+        android:icon="@drawable/ic_status_24dp"
+        android:title="Filter by Status" />
+
+</menu>

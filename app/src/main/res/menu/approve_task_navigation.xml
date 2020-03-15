@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_accept"
+        android:icon="@drawable/ic_accept_task_24dp"
+        android:title="Accept" />
+
+    <item
+        android:id="@+id/navigation_decline"
+        android:icon="@drawable/ic_decline_task_24dp"
+        android:title="Decline" />
+
+    <item
+        android:id="@+id/navigation_modify"
+        android:icon="@drawable/ic_modify_task_24dp"
+        android:title="Modify" />
+</menu>

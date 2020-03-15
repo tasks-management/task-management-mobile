@@ -1,12 +1,12 @@
 package duongll.succotask.entity;
 
-public class Team {
+import java.io.Serializable;
+
+public class Team implements Serializable {
 
     private Long id;
 
     private String name;
-
-    private String username;
 
     public Long getId() {
         return id;
@@ -22,13 +22,5 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

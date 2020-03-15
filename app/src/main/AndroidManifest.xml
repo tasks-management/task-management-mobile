@@ -3,19 +3,33 @@
     package="duongll.succotask">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IndexActivity" />
-        <activity android:name=".HistoryTaskActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".ListUserActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.TaskSubmitDetailActivity"></activity>
+        <activity android:name=".activity.UserManageTaskActivity" />
+        <activity android:name=".activity.YourTaskRequestActivity" />
+        <activity android:name=".activity.UserHistoryTaskActivity" />
+        <activity android:name=".activity.FilterByUserIdActivity" />
+        <activity android:name=".activity.FilterByStatusActivity" />
+        <activity android:name=".activity.FilterByDateActivity" />
+        <activity android:name=".activity.ListApproveTaskRequestActivity" />
+        <activity android:name=".activity.CreateTeamActivity" />
+        <activity android:name=".activity.ManageUserActivity" />
+        <activity android:name=".activity.ManageTaskActivity" />
+        <activity android:name=".activity.AdminIndexActivity" />
+        <activity android:name=".activity.CreateUserActivity" />
+        <activity android:name=".activity.CreateTaskActivity" />
+        <activity android:name=".activity.TaskDetailActivity" />
+        <activity android:name=".activity.IndexActivity" />
+        <activity android:name=".activity.HistoryTaskActivity" />
+        <activity android:name=".activity.ListUserActivity" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

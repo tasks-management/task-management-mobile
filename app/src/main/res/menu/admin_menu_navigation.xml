@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_admin_tasks"
+        android:icon="@drawable/ic_task_work_24dp"
+        android:title="Work" />
+
+    <item
+        android:id="@+id/navigation_admin_users"
+        android:icon="@drawable/ic_manage_user_24dp"
+        android:title="User" />
+
+    <item
+        android:id="@+id/navigation_admin_history"
+        android:icon="@drawable/ic_history_24dp"
+        android:title="History" />
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/ic_logout_24dp"
+        android:title="Logout" />
+
+</menu>
