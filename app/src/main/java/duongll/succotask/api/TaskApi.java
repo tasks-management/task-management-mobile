@@ -1,10 +1,10 @@
 package duongll.succotask.api;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 import duongll.succotask.dto.CreateTaskDto;
+import duongll.succotask.dto.SubmitTaskDto;
 import duongll.succotask.dto.TaskCommentDto;
 import duongll.succotask.entity.Task;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 
 public interface TaskApi {
 
-    @GET(value = "/api/v1/user/{id}/history")
+    @GET(value = "/api/v1/user/{id}/task/list")
     Call<List<Task>> getTaskListForUser(@Path("id") Long userId);
 
     @GET(value = "/api/v1/user/{id}/task/history")
@@ -36,7 +36,11 @@ public interface TaskApi {
     Call<Task> acceptOrDeclineSubmitTask(@Path("id") Long taskId,
                                          @Body TaskCommentDto dto);
 
-    @PUT(value = "/api/v1/task/{id}")
+    @PUT(value = "/api/v1/task/status/{id}")
     Call<Task> changeTaskStatus(@Path("id") Long taskId,
                                 @Query("status") String status);
+
+    @PUT(value = "/api/v1/task/{id}/submit")
+    Call<Task> submitTaskFromUser(@Path("id") Long taskId,
+                                  @Body SubmitTaskDto submitTaskDTO);
 }

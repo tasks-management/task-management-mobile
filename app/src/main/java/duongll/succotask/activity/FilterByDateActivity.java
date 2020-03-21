@@ -34,6 +34,7 @@ public class FilterByDateActivity extends AppCompatActivity {
     private TextView txtFrom, txtTo;
     private Date searchFrom, searchTo;
     private ListView listHistory;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class FilterByDateActivity extends AppCompatActivity {
         txtTo = findViewById(R.id.txtHistoryDateTo);
         Intent intent = this.getIntent();
         userId = intent.getLongExtra("user_id", new Long(0));
+        role = intent.getStringExtra("role");
     }
 
     public void clickToGetFromDate(View view) {
@@ -125,9 +127,9 @@ public class FilterByDateActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Task dto = (Task) listHistory.getItemAtPosition(position);
-                            Intent intentDetail = new Intent(FilterByDateActivity.this, TaskDetailActivity.class);
+                            Intent intentDetail = new Intent(FilterByDateActivity.this, HistoryTaskDetailActivity.class);
                             intentDetail.putExtra("DTO", dto);
-                            intentDetail.putExtra("message", "history");
+                            intentDetail.putExtra("role", role);
                             startActivity(intentDetail);
                         }
                     });

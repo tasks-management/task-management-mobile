@@ -87,23 +87,6 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="Source handle: "/>
-        <TextView
-            android:id="@+id/txtSourceDetail"
-            android:layout_width="wrap_content"
-            android:gravity="right"
-            android:layout_weight="1"
-            android:textSize="15dp"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -172,57 +155,6 @@
                 android:textSize="15dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="Task rating: "/>
-            <TextView
-                android:id="@+id/txtTaskRateDetail"
-                android:layout_width="wrap_content"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="Time comment: "/>
-            <TextView
-                android:id="@+id/txtTaskTimeCommentDetail"
-                android:layout_width="wrap_content"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="Comment Content: "/>
-            <TextView
-                android:id="@+id/txtTaskCommentDetail"
-                android:layout_width="wrap_content"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -274,23 +206,6 @@
             android:textSize="15dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="Image: "/>
-            <TextView
-                android:id="@+id/txtTaskImageDetail"
-                android:layout_width="wrap_content"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
     </LinearLayout>
         <Button
             android:id="@+id/btnSubmitTask"

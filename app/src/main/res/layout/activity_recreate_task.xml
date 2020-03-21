@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.RecreateTaskActivity">
+
+    <TextView
+        android:id="@+id/txtTilteActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@color/titleColor"
+        android:text="Recreate Task For User"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Task Name: "/>
+            <EditText
+                android:id="@+id/txtTaskNameReassign"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Task Description: "/>
+            <EditText
+                android:id="@+id/txtTaskDescriptionReassign"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Process Content: "/>
+            <EditText
+                android:id="@+id/txtTaskProcessReassgin"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Start date: "/>
+            <TextView
+                android:id="@+id/txtTaskStartDateReassign"
+                android:layout_width="wrap_content"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:text="YYYY/MM/DD"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:onClick="clickToGetFromDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Date"
+                android:layout_weight="0"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="End date: "/>
+            <TextView
+                android:id="@+id/txtTaskEndDateReassign"
+                android:layout_width="wrap_content"
+                android:text="YYYY/MM/DD"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:onClick="clickToGetToDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Date"
+                android:layout_weight="0"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Creator: "/>
+            <EditText
+                android:id="@+id/txtTaskCreatorReassign"
+                android:layout_width="wrap_content"
+                android:enabled="false"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Handler: "/>
+            <Spinner
+                android:id="@+id/spinner_handler_id_reassign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btnFunction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="clickToRecreateOrModifyTask"
+            android:text="Recreate Task"/>
+    </LinearLayout>
+</LinearLayout>

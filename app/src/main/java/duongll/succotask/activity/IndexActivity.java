@@ -34,7 +34,7 @@ public class IndexActivity extends AppCompatActivity {
 
     private ListView listTask;
     private String role;
-    private Long userId;
+    private Long userId, teamId;
     private TextView txtRole, txtName, txtId, txtTeamName;
 
     @Override
@@ -50,32 +50,17 @@ public class IndexActivity extends AppCompatActivity {
         txtName.setText(intent.getStringExtra("name"));
         txtId = findViewById(R.id.txtUserId);
         txtId.setText(userId + "");
+        teamId = intent.getLongExtra("team_id", new Long(0));
         txtTeamName = findViewById(R.id.txtUserTeamName);
+        txtTeamName.setText(intent.getStringExtra("team_name"));
         listTask = findViewById(R.id.listTask);
-        Retrofit retrofit = APIConfig.createRetrofitForAPI();
-        TeamApi teamApi = APIConfig.getAPIFromClass(retrofit, TeamApi.class);
-        Call<Team> teamCall = teamApi.getTeamInfoById(intent.getLongExtra("team_id", new Long(0)));
-        teamCall.enqueue(new Callback<Team>() {
-            @Override
-            public void onResponse(Call<Team> call, Response<Team> response) {
-                if(response.code() == 200) {
-                    IndexActivity.this.txtTeamName.setText(response.body().getName());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Team> call, Throwable t) {
-                Toast.makeText(IndexActivity.this, "Cannot connect to server", Toast.LENGTH_SHORT);
-                return;
-            }
-        });
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_qrcode:
-                        Toast.makeText(IndexActivity.this, "QR Code", Toast.LENGTH_SHORT).show();
+                        clickToQrCodePage();
                         break;
                     case R.id.navigation_tasks:
                         clickToManageTask(null);
@@ -112,7 +97,6 @@ public class IndexActivity extends AppCompatActivity {
                             Task dto = (Task) listTask.getItemAtPosition(position);
                             Intent intentDetail = new Intent(IndexActivity.this, TaskDetailActivity.class);
                             intentDetail.putExtra("DTO", dto);
-                            intentDetail.putExtra("message", "index");
                             intentDetail.putExtra("role", IndexActivity.this.role);
                             startActivity(intentDetail);
                         }
@@ -129,6 +113,14 @@ public class IndexActivity extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+    public void clickToQrCodePage() {
+        Intent intent = new Intent(this, ScanQRCodeActivity.class);
+        intent.putExtra("user_id", userId);
+        intent.putExtra("role", role);
+        intent.putExtra("team_id", teamId);
+        startActivity(intent);
     }
 
     public void clickToHistoryPage(View view) {

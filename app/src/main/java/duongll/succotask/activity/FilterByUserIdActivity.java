@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,12 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import duongll.succotask.R;
 import duongll.succotask.adapter.TaskAdapter;
@@ -53,7 +52,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
         spUserId = findViewById(R.id.spinner_user_id_history);
         userId = intent.getLongExtra("user_id", new Long(0));
         List<String> dataSrc = new ArrayList<>();
-        dataSrc.add("DONE");
+        dataSrc.add("SUCCEED");
         dataSrc.add("FAIL");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dataSrc);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,7 +75,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
         if (role.equals("manager")) {
             callList = userApi.getAllUserInTeam(userId);
         } else {
-            callList = userApi.getAllManagerUser();
+            callList = userApi.getAllUserForAdmin();
         }
         callList.enqueue(new Callback<List<User>>() {
             @Override
@@ -191,7 +190,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
             return;
         }
         String[] tmp = selectedUserId.split(" - ");
-        Long userId = Long.parseLong(tmp[1]);
+        final Long userId = Long.parseLong(tmp[1]);
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         Call<List<Task>> call = taskApi.getUserHistory(userId, searchFrom, searchTo, selectedStatus);
@@ -201,15 +200,15 @@ public class FilterByUserIdActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     TaskAdapter adapter = new TaskAdapter();
                     adapter.setTaskList(response.body());
-                    listHistory = findViewById(R.id.listHistoryTask);
                     listHistory.setAdapter(adapter);
                     listHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Task dto = (Task) listHistory.getItemAtPosition(position);
-                            Intent intentDetail = new Intent(FilterByUserIdActivity.this, TaskDetailActivity.class);
+                            Intent intentDetail = new Intent(FilterByUserIdActivity.this, HistoryTaskDetailActivity.class);
                             intentDetail.putExtra("DTO", dto);
-                            intentDetail.putExtra("message", "history");
+                            intentDetail.putExtra("role", role);
+                            intentDetail.putExtra("user_id", userId);
                             startActivity(intentDetail);
                         }
                     });

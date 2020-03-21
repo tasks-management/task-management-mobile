@@ -22,9 +22,12 @@ public interface UserApi {
     @POST("api/v1/user/createUser")
     Call<User> createNewUser(@Body UserDto user);
 
-    @GET("api/v1/user/managers")
-    Call<List<User>> getAllManagerUser();
+    @GET("api/v1/user/list/users")
+    Call<List<User>> getAllUserForAdmin();
 
     @GET("api/v1/user/{id}/users")
     Call<List<User>> getAllUserInTeam(@Path("id") Long userId);
+
+    @GET("api/v1/user/{id}")
+    Call<User> getUserInformation(@Path("id") Long userId);
 }

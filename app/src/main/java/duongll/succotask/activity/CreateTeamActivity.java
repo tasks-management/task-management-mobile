@@ -20,7 +20,6 @@ import retrofit2.Retrofit;
 public class CreateTeamActivity extends AppCompatActivity {
 
     private EditText edtTeamName, edtUsername, edtPassword, edtPasswordConfirm, edtName;
-    private Long teamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,26 +59,6 @@ public class CreateTeamActivity extends AppCompatActivity {
             return;
         }
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
-//        TeamApi teamApi = APIConfig.getAPIFromClass(retrofit, TeamApi.class);
-//        Team team = new Team();
-//        team.setName(edtTeamName.getText().toString());
-//        Call<Team> teamCall = teamApi.createNewTeam(team);
-//        teamCall.enqueue(new Callback<Team>() {
-//            @Override
-//            public void onResponse(Call<Team> call, Response<Team> response) {
-//                if(response.code() == 200) {
-//                    CreateTeamActivity.this.teamId = response.body().getId();
-//                } else {
-//                    Toast.makeText(CreateTeamActivity.this, "Cannot create new team", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Team> call, Throwable t) {
-//                Toast.makeText(CreateTeamActivity.this, "Have error when connect to server", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//        });
         UserApi userApi = APIConfig.getAPIFromClass(retrofit, UserApi.class);
         String teamName = edtTeamName.getText().toString();
         String username = edtUsername.getText().toString();

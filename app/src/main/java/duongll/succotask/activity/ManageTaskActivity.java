@@ -11,7 +11,6 @@ import duongll.succotask.R;
 
 public class ManageTaskActivity extends AppCompatActivity {
 
-    private Button btnFindUser;
     private Long userId;
     private String role;
 
@@ -20,18 +19,14 @@ public class ManageTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_task);
         Intent intent = this.getIntent();
-        role = intent.getStringExtra("role");
-        if (role.equals("admin")){
-            btnFindUser = findViewById(R.id.btnFindUser);
-            btnFindUser.setVisibility(View.INVISIBLE);
-            btnFindUser.setEnabled(false);
-        }
         userId = intent.getLongExtra("user_id", new Long(0));
+        role = intent.getStringExtra("role");
     }
 
     public void clickToApproveTaskForUserPage(View view) {
         Intent intent = new Intent(this, ListApproveTaskRequestActivity.class);
         intent.putExtra("user_id", userId);
+        intent.putExtra("role", role);
         startActivity(intent);
     }
 
@@ -42,6 +37,4 @@ public class ManageTaskActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickToFindUserPage(View view) {
-    }
 }

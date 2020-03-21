@@ -26,11 +26,4 @@
         android:onClick="clickToApproveTaskForUserPage"
         android:text="Approve Task For User"/>
 
-    <Button
-        android:id="@+id/btnFindUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Find User by barcode"
-        android:onClick="clickToFindUserPage"
-        android:gravity="center" />
 </LinearLayout>

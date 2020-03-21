@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="duongll.succotask">
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.TaskSubmitDetailActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <activity android:name=".activity.PendingTaskDetailActivity" />
+        <activity android:name=".activity.HistoryTaskDetailActivity" />
+        <activity android:name=".activity.UserTaskDetailActivity" />
+        <activity android:name=".activity.QRCodeResultActivity" />
+        <activity android:name=".activity.ScanQRCodeActivity" />
+        <activity android:name=".activity.RecreateTaskActivity" />
+        <activity android:name=".activity.TaskSubmitDetailActivity" />
         <activity android:name=".activity.UserManageTaskActivity" />
         <activity android:name=".activity.YourTaskRequestActivity" />
         <activity android:name=".activity.UserHistoryTaskActivity" />
@@ -28,7 +41,6 @@
         <activity android:name=".activity.TaskDetailActivity" />
         <activity android:name=".activity.IndexActivity" />
         <activity android:name=".activity.HistoryTaskActivity" />
-        <activity android:name=".activity.ListUserActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +48,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".MyFcmService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

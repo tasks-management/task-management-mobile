@@ -2,12 +2,18 @@ package duongll.succotask.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import duongll.succotask.R;
 import duongll.succotask.config.APIConfig;
@@ -26,6 +32,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = token;
+                        Log.d("TAG", msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public void clickToSubmit(View view) {
@@ -55,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent;
                     if(!role.contains("admin")) {
                         intent = new Intent(MainActivity.this, IndexActivity.class);
-                        intent.putExtra("team_id",response.body().getTeamId().getId());
+                        intent.putExtra("team_name",response.body().getTeamId().getName());
+                        intent.putExtra("team_id", response.body().getTeamId().getId());
                     } else {
                         intent = new Intent(MainActivity.this, AdminIndexActivity.class);
                     }

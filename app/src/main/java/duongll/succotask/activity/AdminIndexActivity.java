@@ -30,6 +30,7 @@ import retrofit2.Retrofit;
 public class AdminIndexActivity extends AppCompatActivity {
 
     private TextView txtName, txtUserId, txtUserRole;
+    private Long userId;
     private ListView listTask;
 
     @Override
@@ -43,6 +44,7 @@ public class AdminIndexActivity extends AppCompatActivity {
         txtUserId.setText(intent.getLongExtra("user_id", 0) + "");
         txtUserRole = findViewById(R.id.txtAdminRole);
         txtUserRole.setText(intent.getStringExtra("role"));
+        userId = Long.parseLong(txtUserId.getText().toString());
         listTask = findViewById(R.id.listAdminTask);
         BottomNavigationView bottomNavigationView = findViewById(R.id.admin_menu_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,12 +110,15 @@ public class AdminIndexActivity extends AppCompatActivity {
 
     public void clickToManageUser(View view) {
         Intent intent = new Intent(this, ManageUserActivity.class);
+        intent.putExtra("user_id", userId);
+        intent.putExtra("role", txtUserRole.getText().toString());
         startActivity(intent);
     }
 
     public void clickToManageTask(View view) {
         Intent intent = new Intent(this, ManageTaskActivity.class);
         intent.putExtra("user_id", txtUserId.getText().toString());
+        intent.putExtra("role", txtUserRole.getText().toString());
         startActivity(intent);
     }
 

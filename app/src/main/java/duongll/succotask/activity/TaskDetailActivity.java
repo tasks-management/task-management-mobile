@@ -3,6 +3,7 @@ package duongll.succotask.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,18 +13,21 @@ import android.widget.Toast;
 import duongll.succotask.R;
 import duongll.succotask.api.TaskApi;
 import duongll.succotask.config.APIConfig;
+import duongll.succotask.config.AppConfig;
+import duongll.succotask.dto.SubmitTaskDto;
 import duongll.succotask.entity.Task;
+import duongll.succotask.fragment.FinishDialogFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class TaskDetailActivity extends AppCompatActivity {
+public class TaskDetailActivity extends AppCompatActivity implements FinishDialogFragment.OnSuccess {
 
     private Button btnSubmit;
     private TextView txtIdDetail, txtNameDetail, txtDescriptionDetail, txtProcessDetail,
-            txtSourceDetail, txtCreatedDate, txtStartDate, txtEndDate, txtLastModified,
-            txtRating, txtComment, txtCommentTime, txtCreator, txtHandler, txtStatus, txtImage;
+            txtCreatedDate, txtStartDate, txtEndDate, txtLastModified,
+            txtCreator, txtHandler, txtStatus;
     private String role;
 
     @Override
@@ -31,10 +35,6 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
         Intent intent = this.getIntent();
-        if (intent.getStringExtra("message").equals("history")) {
-            btnSubmit = findViewById(R.id.btnSubmitTask);
-            btnSubmit.setVisibility(View.GONE);
-        }
         role = intent.getStringExtra("role");
         Task dto = (Task) intent.getSerializableExtra("DTO");
         String[] strTmpStart = dto.getStartDate().toString().split(" ");
@@ -72,12 +72,6 @@ public class TaskDetailActivity extends AppCompatActivity {
         } else {
             txtProcessDetail.setText("No Process Content");
         }
-        txtSourceDetail = findViewById(R.id.txtSourceDetail);
-        if (dto.getSourceHandler() != null) {
-            txtSourceDetail.setText(dto.getSourceHandler());
-        } else {
-            txtSourceDetail.setText("No Source Handler");
-        }
         txtCreatedDate = findViewById(R.id.txtTaskCreatedDetail);
         if (dto.getCreated() != null) {
             txtCreatedDate.setText(created);
@@ -96,20 +90,6 @@ public class TaskDetailActivity extends AppCompatActivity {
         } else {
             txtLastModified.setText("Not Modified Yet");
         }
-        txtRating = findViewById(R.id.txtTaskRateDetail);
-        txtRating.setText(dto.getRate() + "");
-        txtComment = findViewById(R.id.txtTaskCommentDetail);
-        if (dto.getCommentContent() == null) {
-            txtComment.setText("No Comment");
-        } else {
-            txtComment.setText(dto.getCommentContent());
-        }
-        txtCommentTime = findViewById(R.id.txtTaskTimeCommentDetail);
-        if (dto.getTimeComment() == null) {
-            txtCommentTime.setText("No Comment Time");
-        } else {
-            txtCommentTime.setText(dto.getTimeComment().toString());
-        }
         txtCreator = findViewById(R.id.txtTaskCreatorDetail);
         if (dto.getCreatorId() != null) {
             txtCreator.setText(dto.getCreatorId().getId() + "");
@@ -120,15 +100,16 @@ public class TaskDetailActivity extends AppCompatActivity {
         }
         txtStatus = findViewById(R.id.txtTaskStatusDetail);
         txtStatus.setText(dto.getTaskStatus());
-        txtImage = findViewById(R.id.txtTaskImageDetail);
-        if (dto.getImage() == null) {
-            txtImage.setText("No Image");
-        } else {
-            txtImage.setText(dto.getImage());
-        }
     }
 
     public void clickToSubmitTask(View view) {
+        FinishDialogFragment userSubmitted = new FinishDialogFragment();
+        userSubmitted.setOnSuccessCallback(this);
+        userSubmitted.show(getSupportFragmentManager(), "TAG");
+    }
+
+    @Override
+    public void onSuccess(Bitmap bitmap) {
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         String status;
@@ -137,7 +118,10 @@ public class TaskDetailActivity extends AppCompatActivity {
         } else {
             status = "SUCCEED";
         }
-        Call<Task> call = taskApi.changeTaskStatus(Long.parseLong(txtIdDetail.getText().toString()), status);
+        SubmitTaskDto submitTask = new SubmitTaskDto();
+        submitTask.setImage(AppConfig.fromBitmapToString64(bitmap));
+        submitTask.setStatus(status);
+        Call<Task> call = taskApi.submitTaskFromUser(Long.parseLong(txtIdDetail.getText().toString()), submitTask);
         call.enqueue(new Callback<Task>() {
             @Override
             public void onResponse(Call<Task> call, Response<Task> response) {
@@ -145,7 +129,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                     Toast.makeText(TaskDetailActivity.this, "Your task has been submitted", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    Toast.makeText(TaskDetailActivity.this, "Decline task failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TaskDetailActivity.this, "Submit task failed", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -156,5 +140,10 @@ public class TaskDetailActivity extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+    @Override
+    public void onCancel(boolean cancelable) {
+
     }
 }

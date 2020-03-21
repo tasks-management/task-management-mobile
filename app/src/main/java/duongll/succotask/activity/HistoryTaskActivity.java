@@ -35,7 +35,7 @@ public class HistoryTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_task);
-        Intent intent = this.getIntent();
+        final Intent intent = this.getIntent();
         userId = intent.getLongExtra("user_id", 0);
         role = intent.getStringExtra("role");
         if (userId == 0) {
@@ -57,9 +57,9 @@ public class HistoryTaskActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Task dto = (Task) listTask.getItemAtPosition(position);
-                            Intent intentDetail = new Intent(HistoryTaskActivity.this, TaskDetailActivity.class);
+                            Intent intentDetail = new Intent(HistoryTaskActivity.this, HistoryTaskDetailActivity.class);
                             intentDetail.putExtra("DTO", dto);
-                            intentDetail.putExtra("message", "history");
+                            intentDetail.putExtra("role", role);
                             startActivity(intentDetail);
                         }
                     });
@@ -97,12 +97,14 @@ public class HistoryTaskActivity extends AppCompatActivity {
 
     public void clickToFilterByDate(View view) {
         Intent intent = new Intent(this, FilterByDateActivity.class);
+        intent.putExtra("role", role);
         intent.putExtra("user_id", userId);
         startActivity(intent);
     }
 
     public void clickToFilterByStatus(View view) {
         Intent intent = new Intent(this, FilterByStatusActivity.class);
+        intent.putExtra("role", role);
         intent.putExtra("user_id", userId);
         startActivity(intent);
     }

@@ -30,6 +30,7 @@ public class FilterByStatusActivity extends AppCompatActivity {
     private String selectedStatus;
     private Long userId;
     private ListView listHistoryByStatus;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,10 @@ public class FilterByStatusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter_by_status);
         Intent intent = this.getIntent();
         userId = intent.getLongExtra("user_id", new Long(0));
+        role = intent.getStringExtra("role");
         spStatus = findViewById(R.id.spinner_status_history);
         List<String> dataSrc = new ArrayList<>();
-        dataSrc.add("DONE");
+        dataSrc.add("SUCCEED");
         dataSrc.add("FAIL");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dataSrc);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -78,9 +80,9 @@ public class FilterByStatusActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Task dto = (Task) listHistoryByStatus.getItemAtPosition(position);
-                            Intent intentDetail = new Intent(FilterByStatusActivity.this, TaskDetailActivity.class);
+                            Intent intentDetail = new Intent(FilterByStatusActivity.this, HistoryTaskDetailActivity.class);
                             intentDetail.putExtra("DTO", dto);
-                            intentDetail.putExtra("message", "history");
+                            intentDetail.putExtra("role", role);
                             startActivity(intentDetail);
                         }
                     });

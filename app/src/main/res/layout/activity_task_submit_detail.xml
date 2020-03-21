@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Task Detail"
+        android:text="User's Submitted Task Detail"
         android:gravity="center"
         android:textColor="@color/titleColor"
         android:textSize="20dp" />
@@ -85,23 +85,6 @@
                     android:textSize="15dp"
                     android:gravity="right"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:text="Source handle: "/>
-                <TextView
-                    android:id="@+id/txtSourceDetail"
-                    android:layout_width="wrap_content"
-                    android:gravity="right"
-                    android:layout_weight="1"
-                    android:textSize="15dp"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
@@ -214,25 +197,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:text="Status: "/>
-                <TextView
-                    android:id="@+id/txtTaskStatusDetail"
-                    android:layout_width="wrap_content"
-                    android:gravity="right"
-                    android:layout_weight="1"
-                    android:textSize="15dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
                     android:text="Image: "/>
-                <TextView
+                <ImageView
                     android:id="@+id/txtTaskImageDetail"
                     android:layout_width="wrap_content"
                     android:gravity="right"
@@ -251,7 +217,7 @@
                 android:id="@+id/txtTitleComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Task Detail"
+                android:text="Manager Comment"
                 android:gravity="center"
                 android:textColor="@color/titleColor"
                 android:textSize="20dp" />
@@ -289,8 +255,7 @@
             <Spinner
                 android:id="@+id/spinner_rating_submit_task"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
         </LinearLayout>
         </LinearLayout>
     <LinearLayout
@@ -317,16 +282,5 @@
             app:itemTextColor="@android:color/white"
             app:menu="@menu/approve_submited_task_navigation"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/admin_approve_pending_bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            app:itemBackground="@color/bgBottomNavigation"
-            android:foreground="?attr/selectableItemBackground"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
-            app:menu="@menu/approve_task_navigation"/>
     </LinearLayout>
 </LinearLayout>

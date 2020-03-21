@@ -32,6 +32,7 @@ public class UserManageTaskActivity extends AppCompatActivity {
 
     public void clickToTaskRequestPage(View view) {
         Intent intent = new Intent(this, YourTaskRequestActivity.class);
+        intent.putExtra("user_id", userId);
         startActivity(intent);
     }
 

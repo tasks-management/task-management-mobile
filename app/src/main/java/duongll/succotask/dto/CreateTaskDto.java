@@ -13,6 +13,9 @@ public class CreateTaskDto implements Serializable {
     private Long creator;
     private Long handler;
 
+    public CreateTaskDto() {
+    }
+
     public CreateTaskDto(String name, String description, String process, String status, String startDate, String endDate, Long creator, Long handler) {
         this.name = name;
         this.description = description;

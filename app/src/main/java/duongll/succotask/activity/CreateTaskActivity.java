@@ -78,7 +78,12 @@ public class CreateTaskActivity extends AppCompatActivity {
             status = "IN PROGRESS";
             Retrofit retrofit = APIConfig.createRetrofitForAPI();
             UserApi userApi = APIConfig.getAPIFromClass(retrofit, UserApi.class);
-            Call<List<User>> callList = userApi.getAllUserInTeam(userId);
+            Call<List<User>> callList;
+            if (role.equals("manager")) {
+                callList = userApi.getAllUserInTeam(userId);
+            } else {
+                callList = userApi.getAllUserForAdmin();
+            }
             callList.enqueue(new Callback<List<User>>() {
                 @Override
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -200,8 +205,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         String[] strTmp = selectedHandlerId.split(" - ");
         Long handler = Long.parseLong(strTmp[1]);
         CreateTaskDto taskDto = new CreateTaskDto(name, description, process,status, searchFrom.toString(), searchTo.toString(), creator, handler);
-        System.out.println("DTO From: " + taskDto.getStartDate());
-        System.out.println("DTO To: " + taskDto.getEndDate());
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         Call<CreateTaskDto> callTask = taskApi.createNewTask(taskDto);

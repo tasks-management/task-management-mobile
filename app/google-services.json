@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "605256928302",
+    "firebase_url": "https://succotask-4c6c6.firebaseio.com",
+    "project_id": "succotask-4c6c6",
+    "storage_bucket": "succotask-4c6c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605256928302:android:d2ce2aa919a57402b7e3bf",
+        "android_client_info": {
+          "package_name": "duongll.succotask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605256928302-3b319o9vcgff9pfqu5jjt1r91037qs5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSnWpxJTy8rpyHpSXfc_NOvVdB4H7p3rQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605256928302-3b319o9vcgff9pfqu5jjt1r91037qs5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

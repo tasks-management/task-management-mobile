@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import duongll.succotask.R;
@@ -29,6 +25,7 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
 
     private ListView listTask;
     private Long userId;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +34,7 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
         listTask = findViewById(R.id.listFinishTask);
         Intent intent = this.getIntent();
         userId = intent.getLongExtra("user_id", new Long(0));
+        role = intent.getStringExtra("role");
     }
 
     @Override
@@ -57,13 +55,20 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Task dto = (Task) listTask.getItemAtPosition(position);
-                            Intent intentDetail = new Intent(ListApproveTaskRequestActivity.this, TaskSubmitDetailActivity.class);
+                            Intent intentDetail;
+                            if (dto.getTaskStatus().equals("SUBMITTED")) {
+                                intentDetail = new Intent(ListApproveTaskRequestActivity.this, TaskSubmitDetailActivity.class);
+                            } else {
+                                intentDetail = new Intent(ListApproveTaskRequestActivity.this, PendingTaskDetailActivity.class);
+                            }
                             intentDetail.putExtra("DTO", dto);
+                            intentDetail.putExtra("user_id", userId);
+                            intentDetail.putExtra("role", role);
                             startActivity(intentDetail);
                         }
                     });
                 } else {
-                    Toast.makeText(ListApproveTaskRequestActivity.this, "Cannot list submited task", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListApproveTaskRequestActivity.this, "Cannot list submitted task", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
