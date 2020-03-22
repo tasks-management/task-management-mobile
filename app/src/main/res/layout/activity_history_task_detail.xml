@@ -266,8 +266,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:text="Image: "/>
-            <TextView
-                android:id="@+id/txtTaskImageDetail"
+            <ImageView
+                android:id="@+id/TaskImageDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
