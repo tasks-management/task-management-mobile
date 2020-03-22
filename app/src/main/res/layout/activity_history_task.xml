@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/titleColor"
+            android:textSize="30dp"
             android:textStyle="bold"
-            android:textSize="20dp"
             android:text="History"
             android:layout_marginTop="10dp"
             android:gravity="center" />

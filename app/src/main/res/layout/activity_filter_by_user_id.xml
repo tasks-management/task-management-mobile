@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:textColor="@color/titleColor"
         android:text="Filter History By Date"/>
     <TextView
@@ -110,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:background="@drawable/button_background"
             android:text="Search"
             android:onClick="clickToSearchByUserId"/>
     </LinearLayout>

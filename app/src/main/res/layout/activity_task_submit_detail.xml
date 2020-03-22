@@ -12,7 +12,8 @@
         android:text="User's Submitted Task Detail"
         android:gravity="center"
         android:textColor="@color/titleColor"
-        android:textSize="20dp" />
+        android:textSize="30dp"
+        android:textStyle="bold"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

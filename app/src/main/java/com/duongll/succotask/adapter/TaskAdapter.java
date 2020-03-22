@@ -1,9 +1,11 @@
 package com.duongll.succotask.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -48,9 +50,22 @@ public class TaskAdapter extends BaseAdapter {
         TextView taskName = convertView.findViewById(R.id.taskName);
         TextView taskStatus = convertView.findViewById(R.id.taskStatus);
         TextView taskDate = convertView.findViewById(R.id.txtTaskDate);
+        LinearLayout linearLayout = convertView.findViewById(R.id.layoutTaskListItem);
         taskId.setText(task.getId() + "");
         taskName.setText(task.getName());
-        taskStatus.setText(task.getTaskStatus());
+        String status = task.getTaskStatus();
+        if (status.equals("SUBMITTED")) {
+            linearLayout.setBackgroundColor(Color.parseColor("#e4e632"));
+        } else if (status.equals("SUCCEED")) {
+            linearLayout.setBackgroundColor(Color.parseColor("#00ff00"));
+        } else if (status.equals("FAIL")) {
+            linearLayout.setBackgroundColor(Color.parseColor("#ff0000"));
+        } else if (status.equals("IN PROGRESS")){
+            linearLayout.setBackgroundColor(Color.parseColor("#0000ff"));
+        } else {
+            linearLayout.setBackgroundColor(Color.parseColor("#ff0000"));
+        }
+        taskStatus.setText(status);
         String[] strTmpStart = task.getStartDate().toString().split(" ");
         String dayFrom = strTmpStart[2];
         String monthFrom = strTmpStart[1];

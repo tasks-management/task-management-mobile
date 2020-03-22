@@ -11,28 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Manage User"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:textColor="@color/titleColor"
         android:gravity="center" />
-
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create New Team"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:onClick="clickToCreateTeamPage" />
+        android:orientation="vertical">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:layout_marginBottom="30dp"
+            android:text="Create New Team"
+            android:gravity="center"
+            android:onClick="clickToCreateTeamPage" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create New User"
-        android:gravity="center"
-        android:onClick="clickToCreateUserPage" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="Create New User"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:onClick="clickToCreateUserPage" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Find User by Scan QR Code"
-        android:gravity="center"
-        android:onClick="clickToFindUser" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:onClick="clickToFindUser"
+            android:text="Find User by Scan QR Code" />
+    </LinearLayout>
 </LinearLayout>

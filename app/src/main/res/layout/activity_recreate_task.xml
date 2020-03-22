@@ -11,7 +11,8 @@
         android:id="@+id/txtTilteActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/titleColor"
         android:text="Recreate Task For User"/>
@@ -157,6 +158,7 @@
             android:id="@+id/btnFunction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
             android:onClick="clickToRecreateOrModifyTask"
             android:text="Recreate Task"/>
     </LinearLayout>
