@@ -37,6 +37,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -118,12 +119,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
         </LinearLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:text="Create New Team"
-            android:onClick="clickToCreateNewTeam"
-            android:gravity="center"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/txtError"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="Create New Team"
+        android:onClick="clickToCreateNewTeam"
+        android:gravity="center"/>
 </LinearLayout>

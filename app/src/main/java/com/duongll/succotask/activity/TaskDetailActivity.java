@@ -106,9 +106,6 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
     public void clickToSubmitTask(View view) {
         FinishDialogFragment userSubmitted = new FinishDialogFragment();
         userSubmitted.setOnSuccessCallback(this);
-        if (userSubmitted.isCancelable()) {
-            finish();
-        }
         userSubmitted.show(getSupportFragmentManager(), "TAG");
     }
 

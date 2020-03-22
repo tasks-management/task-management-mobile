@@ -37,7 +37,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     private EditText edtTaskName, edtTaskDescription,
             edtTaskProcessContent, edtCreator;
 
-    private TextView txtTaskEndDate, txtTaskStartDate;
+    private TextView txtTaskEndDate, txtTaskStartDate, txtErrorMsg;
     private Date searchTo, searchFrom;
     private String role, selectedHandlerId, status;
     private Long userId;
@@ -54,6 +54,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         txtTaskEndDate = findViewById(R.id.txtTaskEndDateCreate);
         edtCreator = findViewById(R.id.txtTaskCreatorCreate);
         spHandler = findViewById(R.id.spinner_handler_id_create);
+        txtErrorMsg = findViewById(R.id.txtError);
         final List<String> dataSrc = new ArrayList<>();
         Intent intent = this.getIntent();
         role = intent.getStringExtra("role");
@@ -185,27 +186,31 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     public void clickToCreateTask(View view) {
         if (edtTaskName.getText().toString().length() == 0) {
-            Toast.makeText(this, "Task name cannot be null", Toast.LENGTH_SHORT).show();
+            txtErrorMsg.setText("Task name cannot be null");
             return;
         }
         if (edtTaskDescription.getText().toString().length() == 0) {
-            Toast.makeText(this, "Task description cannot be null", Toast.LENGTH_SHORT).show();
+            txtErrorMsg.setText("Task description cannot be null");
             return;
         }
         if (edtTaskProcessContent.getText().toString().length() == 0) {
-            Toast.makeText(this, "Task process content cannot be null", Toast.LENGTH_SHORT).show();
+            txtErrorMsg.setText("Task process content cannot be null");
             return;
         }
         if (searchFrom == null) {
-            Toast.makeText(this, "Start date cannot be null", Toast.LENGTH_SHORT).show();
+            txtErrorMsg.setText("Start date cannot be null");
             return;
         }
         if (searchTo == null) {
-            Toast.makeText(this, "End date cannot be null", Toast.LENGTH_SHORT).show();
+           txtErrorMsg.setText("End date cannot be null");
             return;
         }
         if (searchTo.before(searchFrom)) {
-            Toast.makeText(this, "End date cannot before start date", Toast.LENGTH_SHORT).show();
+            txtErrorMsg.setText("End date cannot before start date");
+            return;
+        }
+        if (searchFrom.before(new Date())) {
+            txtErrorMsg.setText("Start date cannot before from today");
             return;
         }
         String name = edtTaskName.getText().toString();

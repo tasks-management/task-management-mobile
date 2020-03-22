@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class CreateUserActivity extends AppCompatActivity {
     private EditText edtUsername, edtPassword, edtConfirmPassword, edtName;
     private Spinner spTeamName;
     private String selectedTeamName;
+    private TextView txtError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class CreateUserActivity extends AppCompatActivity {
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TeamApi teamApi = APIConfig.getAPIFromClass(retrofit, TeamApi.class);
         Call<List<Team>> teamCall = teamApi.listAllTeam();
+        txtError = findViewById(R.id.txtError);
         teamCall.enqueue(new Callback<List<Team>>() {
             @Override
             public void onResponse(Call<List<Team>> call, Response<List<Team>> response) {
@@ -77,26 +80,26 @@ public class CreateUserActivity extends AppCompatActivity {
     public void clickToCreateNewUser(View view) {
         edtUsername = findViewById(R.id.edtUsernameUserCreate);
         if (edtUsername.getText().toString() == null || edtUsername.getText().toString().length() == 0) {
-            Toast.makeText(this, "Username can't be empty", Toast.LENGTH_SHORT).show();
+            txtError.setText("Username can't be empty");
             return;
         }
         edtPassword = findViewById(R.id.edtPasswordUserCreate);
         if (edtPassword.getText().toString() == null || edtPassword.getText().toString().length() == 0) {
-            Toast.makeText(this, "Password can't be empty", Toast.LENGTH_SHORT).show();
+            txtError.setText("Password can't be empty");
             return;
         }
         edtConfirmPassword = findViewById(R.id.edtConfirmUserCreate);
         if (edtConfirmPassword.getText().toString() == null || edtConfirmPassword.getText().toString().length() == 0) {
-            Toast.makeText(this, "Confirm password can't be empty", Toast.LENGTH_SHORT).show();
+            txtError.setText("Confirm password can't be empty");
             return;
         }
         if (!edtConfirmPassword.getText().toString().equals(edtPassword.getText().toString())){
-            Toast.makeText(this, "Confirm password doesn't match password", Toast.LENGTH_SHORT).show();
+            txtError.setText("Confirm password doesn't match password");
             return;
         }
         edtName = findViewById(R.id.edtNameUserCreate);
         if (edtName.getText().toString() == null || edtName.getText().toString().length() == 0) {
-            Toast.makeText(this, "Name can't be empty", Toast.LENGTH_SHORT).show();
+            txtError.setText("Name can't be empty");
             return;
         }
         String id = selectedTeamName.split(" - ")[0];

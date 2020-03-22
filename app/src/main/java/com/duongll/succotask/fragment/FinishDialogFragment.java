@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.IOException;
 
@@ -32,6 +33,7 @@ public class FinishDialogFragment extends DialogFragment {
     private final int REQUEST_IMAGE_GALLERY = 2;
 
     private Button btnCapture, btnGallery;
+    private ImageView imageView;
     private Bitmap bitmap;
     private OnSuccess onSuccessCallback;
     private DialogInterface.OnCancelListener cancelListener;
@@ -59,6 +61,7 @@ public class FinishDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.fragment_finish_dialog, null, false);
+        imageView = dialogView.findViewById(R.id.imageSubmitted);
         btnCapture = dialogView.findViewById(R.id.btnCapture);
         btnGallery = dialogView.findViewById(R.id.btnUpload);
         btnCapture.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +99,11 @@ public class FinishDialogFragment extends DialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bitmap);
         } else if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK){
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), data.getData());
+                imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }

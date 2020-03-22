@@ -35,6 +35,7 @@ public class FilterByDateActivity extends AppCompatActivity {
     private Date searchFrom, searchTo;
     private ListView listHistory;
     private String role;
+    private TextView txtError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class FilterByDateActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         userId = intent.getLongExtra("user_id", new Long(0));
         role = intent.getStringExtra("role");
+        txtError = findViewById(R.id.txtError);
     }
 
     public void clickToGetFromDate(View view) {
@@ -107,11 +109,11 @@ public class FilterByDateActivity extends AppCompatActivity {
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         if (searchFrom == null) {
-            Toast.makeText(this, "From date is empty", Toast.LENGTH_SHORT).show();
+            txtError.setText("From date is empty");
             return;
         }
         if (searchTo == null) {
-            Toast.makeText(this, "End date is empty", Toast.LENGTH_SHORT).show();
+            txtError.setText("End date is empty");
             return;
         }
         Call<List<Task>> callList = taskApi.getUserHistory(userId, searchFrom, searchTo, null);

@@ -43,6 +43,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
     private ListView listHistory;
     private Long userId;
     private Long managerId;
+    private TextView txtError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
         spStatus = findViewById(R.id.spinner_status_history);
         spUserId = findViewById(R.id.spinner_user_id_history);
         userId = intent.getLongExtra("user_id", new Long(0));
+        txtError = findViewById(R.id.txtError);
         managerId = userId;
         List<String> dataSrc = new ArrayList<>();
         dataSrc.add("SUCCEED");
@@ -179,19 +181,19 @@ public class FilterByUserIdActivity extends AppCompatActivity {
 
     public void clickToSearchByUserId(View view) {
         if (searchFrom == null) {
-            Toast.makeText(this, "You must choose search date from", Toast.LENGTH_SHORT).show();
+            txtError.setText("You must choose search date from");
             return;
         }
         if (searchTo == null) {
-            Toast.makeText(this, "You must choose search date to", Toast.LENGTH_SHORT).show();
+            txtError.setText("You must choose search date to");
             return;
         }
         if (selectedUserId == null) {
-            Toast.makeText(this, "You must choose user to search", Toast.LENGTH_SHORT).show();
+            txtError.setText("You must choose user to search");
             return;
         }
         if (selectedStatus == null) {
-            Toast.makeText(this, "You must choose status to search", Toast.LENGTH_SHORT).show();
+            txtError.setText("You must choose status to search");
             return;
         }
         String[] tmp = selectedUserId.split(" - ");

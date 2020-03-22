@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class RecreateTaskActivity extends AppCompatActivity {
     private Date searchFrom, searchTo;
     private Button btnRecreateOrMofidy;
     private TextView txtTilte, txtStartDate,
-            txtEndDate, txtCreator;
+            txtEndDate, txtCreator, txtError;
     private EditText edtTaskName, edtTaskDescription, edtProcess;
     private Spinner spHandler;
     private Long userId;
@@ -53,6 +54,7 @@ public class RecreateTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recreate_task);
         Intent intent = this.getIntent();
         dto = (Task) intent.getSerializableExtra("DTO");
+        txtError = findViewById(R.id.txtError);
         role = intent.getStringExtra("role");
         btnRecreateOrMofidy = findViewById(R.id.btnFunction);
         txtTilte = findViewById(R.id.txtTilteActivity);
@@ -67,17 +69,15 @@ public class RecreateTaskActivity extends AppCompatActivity {
         txtStartDate = findViewById(R.id.txtTaskStartDateReassign);
         txtEndDate = findViewById(R.id.txtTaskEndDateReassign);
         txtCreator = findViewById(R.id.txtTaskCreatorReassign);
-        String[] strTmpStart = dto.getStartDate().toString().split(" ");
-        String dayFrom = strTmpStart[2];
-        String monthFrom = strTmpStart[1];
-        String yearFrom = strTmpStart[5];
-        String[] strTmpEnd = dto.getEndDate().toString().split(" ");
-        String dayEnd = strTmpEnd[2];
-        String monthEnd = strTmpEnd[1];
-        String yearEnd = strTmpEnd[5];
-        String start = yearFrom + "/" +monthFrom + "/" + dayFrom;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String start = "YYYY/MM/DD", end = "YYYY/MM/DD";
+        try {
+            start = sdf.format(dto.getStartDate());
+            end = sdf.format(dto.getEndDate());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         txtStartDate.setText(start);
-        String end = yearEnd + "/" + monthEnd + "/" + dayEnd;
         txtEndDate.setText(end);
         spHandler = findViewById(R.id.spinner_handler_id_reassign);
         if (message.equals("modify")) {
@@ -157,13 +157,19 @@ public class RecreateTaskActivity extends AppCompatActivity {
                 searchFrom = cal.getTime();
             }
         };
+        String s = txtStartDate.getText() + "";
         Calendar cal = Calendar.getInstance();
         int day, month, year;
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
-        year = cal.get(Calendar.YEAR);
-        cal.set(year, month, day);
-        searchFrom = cal.getTime();
+        if (!txtStartDate.getText().toString().contains("DD")) {
+            String strArrtmp[] = s.split("/");
+            day = Integer.parseInt(strArrtmp[2]);
+            month = Integer.parseInt(strArrtmp[1]) - 1;
+            year = Integer.parseInt(strArrtmp[0]);
+        } else {
+            day = cal.get(Calendar.DAY_OF_MONTH);
+            month = cal.get(Calendar.MONTH);
+            year = cal.get(Calendar.YEAR);
+        }
         DatePickerDialog pic = new DatePickerDialog(this, callback, year, month, day);
         pic.setTitle("Start Date");
         pic.show();
@@ -179,13 +185,19 @@ public class RecreateTaskActivity extends AppCompatActivity {
                 searchTo = cal.getTime();
             }
         };
+        String s = txtEndDate.getText() + "";
         Calendar cal = Calendar.getInstance();
         int day, month, year;
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
-        year = cal.get(Calendar.YEAR);
-        cal.set(year, month, day);
-        searchTo = cal.getTime();
+        if (!txtEndDate.getText().toString().contains("DD")) {
+            String strArrtmp[] = s.split("/");
+            day = Integer.parseInt(strArrtmp[2]);
+            month = Integer.parseInt(strArrtmp[1]) - 1;
+            year = Integer.parseInt(strArrtmp[0]);
+        } else {
+            day = cal.get(Calendar.DAY_OF_MONTH);
+            month = cal.get(Calendar.MONTH);
+            year = cal.get(Calendar.YEAR);
+        }
         DatePickerDialog pic = new DatePickerDialog(this, callback, year, month, day);
         pic.setTitle("End Date");
         pic.show();
@@ -193,27 +205,31 @@ public class RecreateTaskActivity extends AppCompatActivity {
 
     public void clickToRecreateOrModifyTask(View view) {
         if (edtTaskName.getText().toString().length() == 0) {
-            Toast.makeText(this, "Task name cannot be null", Toast.LENGTH_SHORT).show();
+            txtError.setText("Task name cannot be null");
             return;
         }
         if (edtTaskDescription.getText().toString().length() == 0) {
-            Toast.makeText(this, "Task description cannot be null", Toast.LENGTH_SHORT).show();
+            txtError.setText("Task description cannot be null");
             return;
         }
         if (edtProcess.getText().toString().length() == 0) {
-            Toast.makeText(this, "Task process content cannot be null", Toast.LENGTH_SHORT).show();
+            txtError.setText("Task process content cannot be null");
             return;
         }
         if (searchFrom == null) {
-            Toast.makeText(this, "Start date cannot be null", Toast.LENGTH_SHORT).show();
+            txtError.setText("Start date cannot be null");
             return;
         }
         if (searchTo == null) {
-            Toast.makeText(this, "End date cannot be null", Toast.LENGTH_SHORT).show();
+            txtError.setText("End date cannot be null");
             return;
         }
         if (searchTo.before(searchFrom)) {
-            Toast.makeText(this, "End date cannot before start date", Toast.LENGTH_SHORT).show();
+            txtError.setText("End date cannot before start date");
+            return;
+        }
+        if (searchFrom.before(new Date())) {
+            txtError.setText("Start date cannot before from today");
             return;
         }
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
