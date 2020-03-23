@@ -3,6 +3,7 @@ package com.duongll.succotask.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-                alertDialog.setTitle("Message");
+                alertDialog.setTitle("Error Message");
                 alertDialog.setMessage("Error cannot login to app. Please try again");
                 alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

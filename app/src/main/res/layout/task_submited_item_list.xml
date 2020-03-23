@@ -18,12 +18,14 @@
                 android:id="@+id/txtTaskDateSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
                 android:text="Task Date:" />
 
             <TextView
                 android:id="@+id/txtTaskHandlerSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="Handler" />
@@ -35,6 +37,7 @@
             <TextView
                 android:id="@+id/taskIdSubmit"
                 android:layout_width="wrap_content"
+                android:textSize="15dp"
                 android:layout_height="wrap_content"
                 android:text="Task_id" />
 
@@ -42,6 +45,7 @@
                 android:id="@+id/taskNameSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
                 android:gravity="right"
                 android:layout_weight="1"
                 android:text="Task Name"/>

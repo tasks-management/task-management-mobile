@@ -27,46 +27,48 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="ID: "/>
             <TextView
                 android:id="@+id/txtTaskIdDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Task name: "/>
             <TextView
                 android:id="@+id/txtTaskNameDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Task description: "/>
             <TextView
                 android:id="@+id/txtTaskDescriptionDetail"
                 android:layout_width="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:gravity="right"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"/>
@@ -74,16 +76,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"
                 android:text="Process content: "/>
             <TextView
                 android:id="@+id/txtProcessContentDetail"
                 android:layout_width="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:gravity="right"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"/>
@@ -91,196 +94,218 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Created date: "/>
             <TextView
                 android:id="@+id/txtTaskCreatedDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Start date: "/>
             <TextView
                 android:id="@+id/txtTaskStartDateDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="End date: "/>
             <TextView
                 android:id="@+id/txtTaskEndDateDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Last Modified: "/>
             <TextView
                 android:id="@+id/txtTaskModifiedDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Task rating: "/>
             <TextView
                 android:id="@+id/txtTaskRateDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Time comment: "/>
             <TextView
                 android:id="@+id/txtTaskTimeCommentDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Comment Content: "/>
             <TextView
                 android:id="@+id/txtTaskCommentDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Creator: "/>
             <TextView
                 android:id="@+id/txtTaskCreatorDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Handler: "/>
             <TextView
                 android:id="@+id/txtTaskHandlerDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Status: "/>
             <TextView
                 android:id="@+id/txtTaskStatusDetail"
                 android:layout_width="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:text="Image: "/>
-            <ImageView
-                android:id="@+id/TaskImageDetail"
-                android:layout_width="wrap_content"
-                android:gravity="right"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/TaskImageDetail"
+                    android:layout_width="150dp"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:textSize="150dp"
+                    android:layout_height="200dp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <Button
-        android:id="@+id/btnReassignTask"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:onClick="clickToReassignTask"
-        android:text="Reassign Task"/>
+        android:layout_weight="0"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btnReassignTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:onClick="clickToReassignTask"
+            android:text="Reassign Task"/>
+    </LinearLayout>
 </LinearLayout>

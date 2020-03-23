@@ -120,7 +120,7 @@ public class CreateUserActivity extends AppCompatActivity {
                     alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            CreateUserActivity.this.finish();
                         }
                     });
                     alertDialog.show();

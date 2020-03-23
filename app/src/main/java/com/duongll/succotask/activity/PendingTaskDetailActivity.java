@@ -131,11 +131,12 @@ public class PendingTaskDetailActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(PendingTaskDetailActivity.this);
                     alertDialog.setTitle("Message");
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage("You have decline user pending task successfully");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            PendingTaskDetailActivity.this.finish();
                         }
                     });
                     alertDialog.show();
@@ -170,11 +171,12 @@ public class PendingTaskDetailActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(PendingTaskDetailActivity.this);
                     alertDialog.setTitle("Message");
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage("You have accepted user pending task successfully");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            PendingTaskDetailActivity.this.finish();
                         }
                     });
                     alertDialog.show();
@@ -204,6 +206,7 @@ public class PendingTaskDetailActivity extends AppCompatActivity {
         intent.putExtra("message", "modify");
         intent.putExtra("user_id", userId);
         intent.putExtra("role", role);
+        finish();
         startActivity(intent);
     }
 }

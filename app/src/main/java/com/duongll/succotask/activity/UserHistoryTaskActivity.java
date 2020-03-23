@@ -34,6 +34,7 @@ public class UserHistoryTaskActivity extends AppCompatActivity {
     private Long userId;
     private ListView listTask;
     private String role;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,11 @@ public class UserHistoryTaskActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         Call<List<Task>> taskCall = taskApi.getUserHistory(userId, null, null, null);
@@ -83,16 +89,19 @@ public class UserHistoryTaskActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserHistoryTaskActivity.this);
-                alertDialog.setTitle("Message");
-                alertDialog.setMessage("You don't have any history task yet");
-                alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                if (!flag) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserHistoryTaskActivity.this);
+                    alertDialog.setTitle("Message");
+                    alertDialog.setMessage("You don't have any history task yet");
+                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                alertDialog.show();
+                        }
+                    });
+                    alertDialog.show();
+                    flag = true;
+                }
             }
         });
     }

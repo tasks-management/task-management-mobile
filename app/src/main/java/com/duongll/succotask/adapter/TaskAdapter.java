@@ -55,15 +55,17 @@ public class TaskAdapter extends BaseAdapter {
         taskName.setText(task.getName());
         String status = task.getTaskStatus();
         if (status.equals("SUBMITTED")) {
-            linearLayout.setBackgroundColor(Color.parseColor("#e4e632"));
+            linearLayout.setBackgroundColor(Color.parseColor("#eae265"));
         } else if (status.equals("SUCCEED")) {
-            linearLayout.setBackgroundColor(Color.parseColor("#00ff00"));
+            linearLayout.setBackgroundColor(Color.parseColor("#9fe365"));
         } else if (status.equals("FAIL")) {
-            linearLayout.setBackgroundColor(Color.parseColor("#ff0000"));
+            linearLayout.setBackgroundColor(Color.parseColor("#ee642e"));
         } else if (status.equals("IN PROGRESS")){
-            linearLayout.setBackgroundColor(Color.parseColor("#0000ff"));
+            linearLayout.setBackgroundColor(Color.parseColor("#309dcd"));
+        } else if (status.equals("PENDING")){
+            linearLayout.setBackgroundColor(Color.parseColor("#b1b3b1"));
         } else {
-            linearLayout.setBackgroundColor(Color.parseColor("#ff0000"));
+            linearLayout.setBackgroundColor(Color.parseColor("#ee642e"));
         }
         taskStatus.setText(status);
         String[] strTmpStart = task.getStartDate().toString().split(" ");

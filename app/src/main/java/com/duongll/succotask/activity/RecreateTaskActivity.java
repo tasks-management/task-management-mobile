@@ -81,6 +81,11 @@ public class RecreateTaskActivity extends AppCompatActivity {
         txtEndDate.setText(end);
         spHandler = findViewById(R.id.spinner_handler_id_reassign);
         if (message.equals("modify")) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dto.getStartDate());
+            searchFrom = calendar.getTime();
+            calendar.setTime(dto.getEndDate());
+            searchTo = calendar.getTime();
             txtTilte.setText("Modify Task For User");
             btnRecreateOrMofidy.setText("Modify Task");
             txtCreator.setText(dto.getCreatorId().getId() + "");
@@ -140,8 +145,16 @@ public class RecreateTaskActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<User>> call, Throwable t) {
-                    Toast.makeText(RecreateTaskActivity.this, "Have error when connect to server", Toast.LENGTH_SHORT).show();
-                    return;
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecreateTaskActivity.this);
+                    alertDialog.setTitle("Error Message");
+                    alertDialog.setMessage("Can not get user in handler");
+                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
                 }
             });
         }
@@ -217,11 +230,11 @@ public class RecreateTaskActivity extends AppCompatActivity {
             return;
         }
         if (searchFrom == null) {
-            txtError.setText("Start date cannot be null");
+            txtError.setText("This start date is old, please choose new one");
             return;
         }
         if (searchTo == null) {
-            txtError.setText("End date cannot be null");
+            txtError.setText("This end date is old, please choose new one");
             return;
         }
         if (searchTo.before(searchFrom)) {
@@ -241,25 +254,27 @@ public class RecreateTaskActivity extends AppCompatActivity {
         String[] strTmp = selectedHandler.split(" - ");
         Long handler = Long.parseLong(strTmp[1]);
         if (message.equals("modify")) {
-            ModifyTaskDto dto = new ModifyTaskDto();
-            dto.setName(name);
-            dto.setDescription(description);
-            dto.setProcess(process);
-            dto.setStartDate(searchFrom.toString());
-            dto.setEndDate(searchTo.toString());
-            dto.setStatus("IN PROGRESS");
-            Call<Task> taskCall = taskApi.modifyUserPendingTask(userId, dto);
+            ModifyTaskDto modifyTaskDto = new ModifyTaskDto();
+            Long taskId = dto.getId();
+            modifyTaskDto.setName(name);
+            modifyTaskDto.setDescription(description);
+            modifyTaskDto.setProcess(process);
+            modifyTaskDto.setStartDate(searchFrom.toString());
+            modifyTaskDto.setEndDate(searchTo.toString());
+            modifyTaskDto.setStatus("IN PROGRESS");
+            Call<Task> taskCall = taskApi.modifyUserPendingTask(taskId, modifyTaskDto);
             taskCall.enqueue(new Callback<Task>() {
                 @Override
                 public void onResponse(Call<Task> call, Response<Task> response) {
                     if (response.code() == 200) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecreateTaskActivity.this);
                         alertDialog.setTitle("Message");
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage("Modified task successfully");
                         alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                RecreateTaskActivity.this.finish();
                             }
                         });
                         alertDialog.show();
@@ -294,11 +309,12 @@ public class RecreateTaskActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecreateTaskActivity.this);
                         alertDialog.setTitle("Message");
+                        alertDialog.setCancelable(false);
                         alertDialog.setMessage("Recreate task successfully");
                         alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                RecreateTaskActivity.this.finish();
                             }
                         });
                         alertDialog.show();

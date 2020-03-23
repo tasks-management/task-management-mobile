@@ -173,11 +173,12 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskSubmitDetailActivity.this);
                     alertDialog.setTitle("Message");
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage("You have accepted user submitted task successfully");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            TaskSubmitDetailActivity.this.finish();
                         }
                     });
                     alertDialog.show();
@@ -219,11 +220,12 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskSubmitDetailActivity.this);
                     alertDialog.setTitle("Message");
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage("You have accepted user submitted task successfully");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            TaskSubmitDetailActivity.this.finish();
                         }
                     });
                     alertDialog.show();

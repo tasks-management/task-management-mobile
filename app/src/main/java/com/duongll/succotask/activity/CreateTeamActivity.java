@@ -93,7 +93,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                     alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            CreateTeamActivity.this.finish();
                         }
                     });
                     alertDialog.show();
@@ -114,6 +114,5 @@ public class CreateTeamActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 }

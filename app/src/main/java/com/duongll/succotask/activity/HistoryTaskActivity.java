@@ -32,6 +32,7 @@ public class HistoryTaskActivity extends AppCompatActivity {
     private ListView listTask;
     private Long userId;
     private String role;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,29 @@ public class HistoryTaskActivity extends AppCompatActivity {
         final Intent intent = this.getIntent();
         userId = intent.getLongExtra("user_id", 0);
         role = intent.getStringExtra("role");
-        if (userId == 0) {
-            Toast.makeText(this, "Cannot get user history", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.manager_history_bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_manager_history_date:
+                        clickToFilterByDate(null);
+                        break;
+                    case R.id.navigation_manager_history_status:
+                        clickToFilterByStatus(null);
+                        break;
+                    case R.id.navigation_manager_history_user_id:
+                        clickToFilterByUserId(null);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         Call<List<Task>> taskCall = taskApi.getUserHistory(userId, null, null, null);
@@ -94,34 +114,19 @@ public class HistoryTaskActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(HistoryTaskActivity.this);
-                alertDialog.setTitle("Message");
-                alertDialog.setMessage("You don't have any history task yet");
-                alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                if (!flag) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(HistoryTaskActivity.this);
+                    alertDialog.setTitle("Message");
+                    alertDialog.setMessage("You don't have any history task yet");
+                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                alertDialog.show();
-            }
-        });
-        BottomNavigationView bottomNavigationView = findViewById(R.id.manager_history_bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_manager_history_date:
-                        clickToFilterByDate(null);
-                        break;
-                    case R.id.navigation_manager_history_status:
-                        clickToFilterByStatus(null);
-                        break;
-                    case R.id.navigation_manager_history_user_id:
-                        clickToFilterByUserId(null);
-                        break;
+                        }
+                    });
+                    alertDialog.show();
+                    flag = true;
                 }
-                return true;
             }
         });
     }

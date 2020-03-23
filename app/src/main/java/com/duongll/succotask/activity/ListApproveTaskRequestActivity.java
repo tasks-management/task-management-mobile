@@ -73,7 +73,7 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                     } else {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
                         alertDialog.setTitle("Message");
-                        alertDialog.setMessage("You don't have any pending task yet");
+                        alertDialog.setMessage("You don't have any pending task from user yet");
                         alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

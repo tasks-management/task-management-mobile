@@ -223,7 +223,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
                     } else {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByUserIdActivity.this);
                         alertDialog.setTitle("Message");
-                        alertDialog.setMessage("You don't have any history task yet");
+                        alertDialog.setMessage("User don't have any history task in that filter");
                         alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -235,7 +235,7 @@ public class FilterByUserIdActivity extends AppCompatActivity {
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByUserIdActivity.this);
                     alertDialog.setTitle("Message");
-                    alertDialog.setMessage("You don't have any history task yet");
+                    alertDialog.setMessage("User don't have any history task in that filter");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

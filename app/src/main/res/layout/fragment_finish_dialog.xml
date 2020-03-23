@@ -23,9 +23,13 @@
         android:layout_height="wrap_content"
         android:text="Upload"/>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageSubmitted"
-        android:layout_width="300dp"
-        android:layout_height="300dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageSubmitted"
+            android:layout_width="300dp"
+            android:layout_height="300dp"/>
+    </LinearLayout>
 </LinearLayout>

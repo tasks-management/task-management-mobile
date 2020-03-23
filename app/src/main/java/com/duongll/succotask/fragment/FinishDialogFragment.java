@@ -36,16 +36,9 @@ public class FinishDialogFragment extends DialogFragment {
     private ImageView imageView;
     private Bitmap bitmap;
     private OnSuccess onSuccessCallback;
-    private DialogInterface.OnCancelListener cancelListener;
 
     public interface OnSuccess {
         void onSuccess(Bitmap bitmap);
-        void onCancel(boolean cancelable);
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        super.onCancel(dialog);
     }
 
     public FinishDialogFragment() {
@@ -88,7 +81,7 @@ public class FinishDialogFragment extends DialogFragment {
         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onSuccessCallback.onCancel(true);
+                dismiss();
             }
         });
         return builder.create();

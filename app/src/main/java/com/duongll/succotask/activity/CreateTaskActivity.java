@@ -115,6 +115,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 public void onFailure(Call<List<User>> call, Throwable t) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTaskActivity.this);
                     alertDialog.setTitle("Error Message");
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage("Create task failed");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
@@ -227,13 +228,14 @@ public class CreateTaskActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CreateTaskDto> call, Response<CreateTaskDto> response) {
                 if (response.code() == 200) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTaskActivity.this);
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTaskActivity.this);
                     alertDialog.setTitle("Message");
+                    alertDialog.setCancelable(false);
                     alertDialog.setMessage("Create task successfully");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            CreateTaskActivity.this.finish();
                         }
                     });
                     alertDialog.show();
@@ -254,6 +256,5 @@ public class CreateTaskActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 }

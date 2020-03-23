@@ -139,7 +139,7 @@ public class FilterByDateActivity extends AppCompatActivity {
                     } else {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByDateActivity.this);
                         alertDialog.setTitle("Message");
-                        alertDialog.setMessage("You don't have any history task yet");
+                        alertDialog.setMessage("You don't have any history task in that from-to date");
                         alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -155,7 +155,7 @@ public class FilterByDateActivity extends AppCompatActivity {
             public void onFailure(Call<List<Task>> call, Throwable t) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByDateActivity.this);
                 alertDialog.setTitle("Message");
-                alertDialog.setMessage("You don't have any history task yet");
+                alertDialog.setMessage("You don't have any history task in that from-to date");
                 alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

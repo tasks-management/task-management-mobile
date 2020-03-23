@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <corners android:radius="10dp" />
+    <corners android:radius="20dp" />
 
     <stroke
         android:width="3px"
         android:color="#4eefb5"/>
 
+    <solid android:color="#bfbcc0"/>
 </shape>

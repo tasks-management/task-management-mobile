@@ -43,7 +43,7 @@ public class YourTaskRequestActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
-        Call<List<Task>> call = taskApi.getPendingTaskForUser(userId);
+        Call<List<Task>> call = taskApi.getUserHistory(userId, null, null, "PENDING");
         call.enqueue(new Callback<List<Task>>() {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {

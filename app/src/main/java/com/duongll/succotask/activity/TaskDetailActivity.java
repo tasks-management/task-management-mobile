@@ -19,6 +19,9 @@ import com.duongll.succotask.config.AppConfig;
 import com.duongll.succotask.dto.SubmitTaskDto;
 import com.duongll.succotask.entity.Task;
 import com.duongll.succotask.fragment.FinishDialogFragment;
+
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +33,7 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
             txtCreatedDate, txtStartDate, txtEndDate, txtLastModified,
             txtCreator, txtHandler, txtStatus;
     private String role;
+    private Button btnSubmit, btnUndone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,14 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
         }
         txtStatus = findViewById(R.id.txtTaskStatusDetail);
         txtStatus.setText(dto.getTaskStatus());
+        btnSubmit = findViewById(R.id.btnSubmitTask);
+        btnUndone = findViewById(R.id.btnUndoneTask);
+        if (new Date().after(dto.getEndDate())) {
+            btnSubmit.setEnabled(false);
+        }
+        if (new Date().before(dto.getEndDate())){
+            btnUndone.setEnabled(false);
+        }
     }
 
     public void clickToSubmitTask(View view) {
@@ -109,38 +121,65 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
         userSubmitted.show(getSupportFragmentManager(), "TAG");
     }
 
+    public void clickToUndoneTask(View view){
+        FinishDialogFragment userSubmitted = new FinishDialogFragment();
+        userSubmitted.setOnSuccessCallback(this);
+        userSubmitted.show(getSupportFragmentManager(), "TAG");
+    }
+
     @Override
     public void onSuccess(Bitmap bitmap) {
-        Retrofit retrofit = APIConfig.createRetrofitForAPI();
-        TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
         String status;
-        if (role.equals("user")) {
-            status = "SUBMITTED";
+        if (btnSubmit.isEnabled()) {
+            if (role.equals("user")) {
+                status = "SUBMITTED";
+            } else {
+                status = "SUCCEED";
+            }
         } else {
-            status = "SUCCEED";
+            status = "FAIL";
         }
-        SubmitTaskDto submitTask = new SubmitTaskDto();
-        submitTask.setImage(AppConfig.fromBitmapToString64(bitmap));
-        submitTask.setStatus(status);
-        Call<Task> call = taskApi.submitTaskFromUser(Long.parseLong(txtIdDetail.getText().toString()), submitTask);
-        call.enqueue(new Callback<Task>() {
-            @Override
-            public void onResponse(Call<Task> call, Response<Task> response) {
-                if (response.code() == 200) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskDetailActivity.this);
-                    alertDialog.setTitle("Message");
-                    alertDialog.setMessage("You have submitted task successfully");
-                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        if (bitmap != null) {
+            Retrofit retrofit = APIConfig.createRetrofitForAPI();
+            TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
+            SubmitTaskDto submitTask = new SubmitTaskDto();
+            submitTask.setImage(AppConfig.fromBitmapToString64(bitmap));
+            submitTask.setStatus(status);
+            Call<Task> call = taskApi.submitTaskFromUser(Long.parseLong(txtIdDetail.getText().toString()), submitTask);
+            call.enqueue(new Callback<Task>() {
+                @Override
+                public void onResponse(Call<Task> call, Response<Task> response) {
+                    if (response.code() == 200) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskDetailActivity.this);
+                        alertDialog.setTitle("Message");
+                        alertDialog.setCancelable(false);
+                        alertDialog.setMessage("You have submitted task successfully");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                TaskDetailActivity.this.finish();
+                            }
+                        });
+                        alertDialog.show();
+                    } else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskDetailActivity.this);
+                        alertDialog.setTitle("Message");
+                        alertDialog.setMessage("You have submitted task failed");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
-                    alertDialog.show();
-                } else {
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Task> call, Throwable t) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskDetailActivity.this);
-                    alertDialog.setTitle("Message");
-                    alertDialog.setMessage("You have submitted task failed");
+                    alertDialog.setTitle("Error Message");
+                    alertDialog.setMessage("Error when submitted task please try again.");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -149,26 +188,7 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
                     });
                     alertDialog.show();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<Task> call, Throwable t) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskDetailActivity.this);
-                alertDialog.setTitle("Error Message");
-                alertDialog.setMessage("Error when submitted task please try again.");
-                alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.show();
-            }
-        });
-    }
-
-    @Override
-    public void onCancel(boolean cancelable) {
-
+            });
+        }
     }
 }
