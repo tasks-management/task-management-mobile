@@ -28,7 +28,7 @@
         android:gravity="center"
         android:textColor="@color/titleColor"
         android:textSize="20dp"
-        android:text="List Submit Task From User" />
+        android:text="List Submit and Pending Task From User" />
 
     <ListView
         android:id="@+id/listFinishTask"

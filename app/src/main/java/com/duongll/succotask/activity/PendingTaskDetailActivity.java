@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,7 +158,6 @@ public class PendingTaskDetailActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 
     private void clickToAcceptPendingTask(){
@@ -168,6 +168,7 @@ public class PendingTaskDetailActivity extends AppCompatActivity {
         callTask.enqueue(new Callback<Task>() {
             @Override
             public void onResponse(Call<Task> call, Response<Task> response) {
+                Log.e("TAGAGAG", response.code() + "");
                 if (response.code() == 200) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(PendingTaskDetailActivity.this);
                     alertDialog.setTitle("Message");
@@ -197,7 +198,6 @@ public class PendingTaskDetailActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 
     private void clickToModifyTask() {

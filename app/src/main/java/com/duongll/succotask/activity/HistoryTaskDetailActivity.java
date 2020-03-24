@@ -88,7 +88,12 @@ public class HistoryTaskDetailActivity extends AppCompatActivity {
         }
         txtLastModified = findViewById(R.id.txtTaskModifiedDetail);
         if (taskDto.getLastModified() != null) {
-            txtLastModified.setText(taskDto.getLastModified().toString());
+            String[] strTmpModify = taskDto.getLastModified().toString().split(" ");
+            String modifyDay = strTmpModify[2];
+            String modifyMonth = strTmpModify[1];
+            String modifyYear = strTmpModify[5];
+            String modify = modifyYear + "/" + modifyMonth + "/" + modifyDay;
+            txtLastModified.setText(modify);
         } else {
             txtLastModified.setText("Not Modified Yet");
         }

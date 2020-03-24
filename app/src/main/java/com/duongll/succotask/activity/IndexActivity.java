@@ -102,33 +102,48 @@ public class IndexActivity extends AppCompatActivity {
         super.onStart();
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
-        Call<List<Task>> listTaskCall = taskApi.getTaskListForUser(Long.parseLong(txtId.getText().toString()));
+        Call<List<Task>> listTaskCall = taskApi.getTaskListForUser(userId);
         listTaskCall.enqueue(new Callback<List<Task>>() {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
-                    if (response.body().size() != 0) {
                         List<String> taskNearExpired = new ArrayList<>();
+                        List<String> taskExpired = new ArrayList<>();
                         TaskAdapter taskAdapter = new TaskAdapter();
                         taskAdapter.setTaskList(response.body());
                         Calendar calendar = Calendar.getInstance();
                         Date currentDay = new Date();
-                        Date endDate;
+                        Date deadline;
                         calendar.setTime(currentDay);
-                        calendar.add(Calendar.DATE, 1);
                         currentDay = calendar.getTime();
                         for (Task task: response.body()) {
-                            calendar.setTime(task.getEndDate());
-                            endDate = calendar.getTime();
-                            if (currentDay.after(endDate)) {
-                                taskNearExpired.add("ID: " + task.getId() + ", Name: " + task.getName());
+                            calendar.setTime(currentDay);
+                            calendar.add(Calendar.DATE, 1);
+                            int date = calendar.get(Calendar.DATE);
+                            int month = calendar.get(Calendar.MONTH);
+                            int year = calendar.get(Calendar.YEAR);
+                            int currentYear = year - 1900;
+                            deadline = new Date(currentYear, month, date);
+                            System.out.println(deadline);
+                            if (deadline.equals(task.getEndDate())) {
+                                taskNearExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
+                            }
+                            if (task.getEndDate().before(currentDay)) {
+                                taskExpired .add("ID: " + task.getId() + " , Name: " + task.getName());
+                            }
+                        }
+                        String message = "";
+                        if (taskExpired.size() != 0) {
+                            for (String s : taskExpired) {
+                                message += s + " is expired. \n";
                             }
                         }
                         if (taskNearExpired.size() != 0) {
-                            String message = "";
                             for (String s : taskNearExpired) {
-                                message += s + " will expired in 24h. \n" ;
+                                message += s + " will expired in 24h. \n";
                             }
+                        }
+                        if (message.length() != 0) {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(IndexActivity.this);
                             alertDialog.setTitle("Message");
                             alertDialog.setMessage(message);
@@ -153,7 +168,6 @@ public class IndexActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }
             }
 
             @Override
@@ -199,18 +213,18 @@ public class IndexActivity extends AppCompatActivity {
     public void clickToLogOut(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        Retrofit retrofit = APIConfig.createRetrofitForAPI();
-        UserApi userApi = APIConfig.getAPIFromClass(retrofit, UserApi.class);
-        Call<User> call = userApi.refreshedNewToken(userId, "");
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
+//        Retrofit retrofit = APIConfig.createRetrofitForAPI();
+//        UserApi userApi = APIConfig.getAPIFromClass(retrofit, UserApi.class);
+//        Call<User> call = userApi.refreshedNewToken(userId, "");
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//            }
+//        });
         finish();
         startActivity(intent);
     }

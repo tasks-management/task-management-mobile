@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.duongll.succotask.R;
 import com.duongll.succotask.api.TaskApi;
@@ -91,7 +90,12 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
         }
         txtLastModified = findViewById(R.id.txtTaskModifiedDetail);
         if (dto.getLastModified() != null) {
-            txtLastModified.setText(dto.getLastModified().toString());
+            String[] strTmpModify = dto.getLastModified().toString().split(" ");
+            String modifyDay = strTmpModify[2];
+            String modifyMonth = strTmpModify[1];
+            String modifyYear = strTmpModify[5];
+            String modify = modifyYear + "/" + modifyMonth + "/" + modifyDay;
+            txtLastModified.setText(modify);
         } else {
             txtLastModified.setText("Not Modified Yet");
         }

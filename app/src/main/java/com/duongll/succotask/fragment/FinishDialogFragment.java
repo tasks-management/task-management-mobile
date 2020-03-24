@@ -77,7 +77,7 @@ public class FinishDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 onSuccessCallback.onSuccess(bitmap);
             }
-        })
+        }).setCancelable(false)
         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

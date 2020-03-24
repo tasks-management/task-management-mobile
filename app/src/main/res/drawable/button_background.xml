@@ -9,5 +9,5 @@
         android:width="3dp"
         android:color="#a4a4a4" />
 
-    <solid android:color="@color/colorPrimary"/>
+    <solid android:color="@color/titleColor"/>
 </shape>

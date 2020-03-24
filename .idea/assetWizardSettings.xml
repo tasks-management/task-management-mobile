@@ -47,8 +47,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="F:\Semester 7\PRM391\icon\person_outline-24px.svg" />
-                                      <entry key="outputName" value="ic_qr_code_24dp" />
+                                      <entry key="imageAsset" value="C:\Users\duong\Desktop\IMG_1584959279778.png" />
+                                      <entry key="outputName" value="app_logo" />
                                       <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="36ff6a" />
                                     </map>
@@ -93,6 +93,24 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\duong\Desktop\IMG_1584959279778.png" />
+                                      <entry key="outputName" value="app_logo" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -132,6 +150,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

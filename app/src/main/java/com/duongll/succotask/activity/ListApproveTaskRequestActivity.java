@@ -49,7 +49,6 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
-                    if (response.body().size() != 0) {
                         TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
                         taskAdapter.setTaskList(response.body());
                         ListApproveTaskRequestActivity.this.listTask.setAdapter(taskAdapter);
@@ -70,18 +69,6 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                                 startActivity(intentDetail);
                             }
                         });
-                    } else {
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
-                        alertDialog.setTitle("Message");
-                        alertDialog.setMessage("You don't have any pending task from user yet");
-                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
-                    }
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
                     alertDialog.setTitle("Error Message");

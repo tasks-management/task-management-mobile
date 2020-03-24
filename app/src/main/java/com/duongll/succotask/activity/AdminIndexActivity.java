@@ -81,12 +81,11 @@ public class AdminIndexActivity extends AppCompatActivity {
         super.onStart();
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);
-        Call<List<Task>> listTaskCall = taskApi.getTaskListForUser(Long.parseLong(txtUserId.getText().toString()));
+        Call<List<Task>> listTaskCall = taskApi.getTaskListForUser(userId);
         listTaskCall.enqueue(new Callback<List<Task>>() {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
-                    if (response.body().size() != 0) {
                         List<String> taskNearExpired = new ArrayList<>();
                         TaskAdapter taskAdapter = new TaskAdapter();
                         taskAdapter.setTaskList(response.body());
@@ -132,7 +131,6 @@ public class AdminIndexActivity extends AppCompatActivity {
                                 startActivity(intentDetail);
                             }
                         });
-                    }
                 }
             }
 
@@ -180,18 +178,18 @@ public class AdminIndexActivity extends AppCompatActivity {
     public void clickToLogOut(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        Retrofit retrofit = APIConfig.createRetrofitForAPI();
-        UserApi userApi = APIConfig.getAPIFromClass(retrofit, UserApi.class);
-        Call<User> call = userApi.refreshedNewToken(userId, "");
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
+//        Retrofit retrofit = APIConfig.createRetrofitForAPI();
+//        UserApi userApi = APIConfig.getAPIFromClass(retrofit, UserApi.class);
+//        Call<User> call = userApi.refreshedNewToken(userId, "");
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//            }
+//        });
         finish();
         startActivity(intent);
     }

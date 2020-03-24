@@ -99,7 +99,12 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
         }
         txtLastModified = findViewById(R.id.txtTaskModifiedDetail);
         if (dto.getLastModified() != null) {
-            txtLastModified.setText(dto.getLastModified().toString());
+            String[] strTmpModify = dto.getLastModified().toString().split(" ");
+            String modifyDay = strTmpModify[2];
+            String modifyMonth = strTmpModify[1];
+            String modifyYear = strTmpModify[5];
+            String modify = modifyYear + "/" + modifyMonth + "/" + modifyDay;
+            txtLastModified.setText(modify);
         } else {
             txtLastModified.setText("Not Modified Yet");
         }
@@ -189,7 +194,7 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
             public void onFailure(Call<Task> call, Throwable t) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskSubmitDetailActivity.this);
                 alertDialog.setTitle("Error Message");
-                alertDialog.setMessage("You have accepted user submitted task successfully");
+                alertDialog.setMessage("You have accepted user submitted task failed");
                 alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -199,7 +204,6 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 
     private void clickToDeclineSubmitTask() {
@@ -221,7 +225,7 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskSubmitDetailActivity.this);
                     alertDialog.setTitle("Message");
                     alertDialog.setCancelable(false);
-                    alertDialog.setMessage("You have accepted user submitted task successfully");
+                    alertDialog.setMessage("You have decline user submitted task successfully");
                     alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -236,7 +240,7 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
             public void onFailure(Call<Task> call, Throwable t) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(TaskSubmitDetailActivity.this);
                 alertDialog.setTitle("Error Message");
-                alertDialog.setMessage("You have accepted user submitted task successfully");
+                alertDialog.setMessage("You have decline user submitted task failed");
                 alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -246,7 +250,6 @@ public class TaskSubmitDetailActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 
 }

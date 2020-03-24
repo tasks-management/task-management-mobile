@@ -81,11 +81,24 @@ public class RecreateTaskActivity extends AppCompatActivity {
         txtEndDate.setText(end);
         spHandler = findViewById(R.id.spinner_handler_id_reassign);
         if (message.equals("modify")) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(dto.getStartDate());
-            searchFrom = calendar.getTime();
-            calendar.setTime(dto.getEndDate());
-            searchTo = calendar.getTime();
+            if (!start.contains("DD")) {
+                try {
+                    searchFrom = sdf.parse(start);
+                } catch (Exception e) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(dto.getStartDate());
+                    searchFrom = calendar.getTime();
+                }
+            }
+            if (!end.contains("DD")) {
+                try {
+                    searchTo = sdf.parse(start);
+                } catch (Exception e) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(dto.getEndDate());
+                    searchTo = calendar.getTime();
+                }
+            }
             txtTilte.setText("Modify Task For User");
             btnRecreateOrMofidy.setText("Modify Task");
             txtCreator.setText(dto.getCreatorId().getId() + "");
@@ -336,6 +349,5 @@ public class RecreateTaskActivity extends AppCompatActivity {
                 }
             });
         }
-        finish();
     }
 }
