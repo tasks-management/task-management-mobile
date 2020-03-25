@@ -139,6 +139,9 @@ public class FilterByDateActivity extends AppCompatActivity {
                             }
                         });
                     } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listHistory.setAdapter(emptyAdapter);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByDateActivity.this);
                         alertDialog.setTitle("Message");
                         alertDialog.setMessage("You don't have any history task in that from-to date");

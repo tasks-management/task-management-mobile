@@ -108,6 +108,7 @@ public class IndexActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
+                    if (response.body().size() != 0) {
                         List<String> taskNearExpired = new ArrayList<>();
                         List<String> taskExpired = new ArrayList<>();
                         TaskAdapter taskAdapter = new TaskAdapter();
@@ -117,7 +118,7 @@ public class IndexActivity extends AppCompatActivity {
                         Date deadline;
                         calendar.setTime(currentDay);
                         currentDay = calendar.getTime();
-                        for (Task task: response.body()) {
+                        for (Task task : response.body()) {
                             calendar.setTime(currentDay);
                             calendar.add(Calendar.DATE, 1);
                             int date = calendar.get(Calendar.DATE);
@@ -130,7 +131,7 @@ public class IndexActivity extends AppCompatActivity {
                                 taskNearExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
                             }
                             if (task.getEndDate().before(currentDay)) {
-                                taskExpired .add("ID: " + task.getId() + " , Name: " + task.getName());
+                                taskExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
                             }
                         }
                         String message = "";
@@ -168,7 +169,22 @@ public class IndexActivity extends AppCompatActivity {
                                 startActivity(intentDetail);
                             }
                         });
+                    } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listTask.setAdapter(emptyAdapter);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(IndexActivity.this);
+                        alertDialog.setTitle("Message");
+                        alertDialog.setMessage("You don't have any task yet");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
                     }
+                }
             }
 
             @Override

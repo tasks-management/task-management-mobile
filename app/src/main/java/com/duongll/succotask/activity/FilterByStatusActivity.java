@@ -93,6 +93,9 @@ public class FilterByStatusActivity extends AppCompatActivity {
                             }
                         });
                     } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listHistoryByStatus.setAdapter(emptyAdapter);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByStatusActivity.this);
                         alertDialog.setTitle("Message");
                         alertDialog.setMessage("You don't have any history task with that status");

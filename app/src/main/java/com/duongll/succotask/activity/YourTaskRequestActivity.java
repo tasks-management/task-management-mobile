@@ -50,19 +50,35 @@ public class YourTaskRequestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
-                    TaskAdapter taskAdapter = new TaskAdapter();
-                    taskAdapter.setTaskList(response.body());
-                    YourTaskRequestActivity.this.listTaskRequest.setAdapter(taskAdapter);
-                    listTaskRequest.setAdapter(taskAdapter);
-                    listTaskRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Task dto = (Task) listTaskRequest.getItemAtPosition(position);
-                            Intent intentDetail = new Intent(YourTaskRequestActivity.this, UserTaskDetailActivity.class);
-                            intentDetail.putExtra("DTO", dto);
-                            startActivity(intentDetail);
-                        }
-                    });
+                    if (response.body().size() != 0) {
+                        TaskAdapter taskAdapter = new TaskAdapter();
+                        taskAdapter.setTaskList(response.body());
+                        YourTaskRequestActivity.this.listTaskRequest.setAdapter(taskAdapter);
+                        listTaskRequest.setAdapter(taskAdapter);
+                        listTaskRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Task dto = (Task) listTaskRequest.getItemAtPosition(position);
+                                Intent intentDetail = new Intent(YourTaskRequestActivity.this, UserTaskDetailActivity.class);
+                                intentDetail.putExtra("DTO", dto);
+                                startActivity(intentDetail);
+                            }
+                        });
+                    } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listTaskRequest.setAdapter(emptyAdapter);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(YourTaskRequestActivity.this);
+                        alertDialog.setTitle("Message");
+                        alertDialog.setMessage("You don't have any task request");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
+                    }
                 }
             }
 

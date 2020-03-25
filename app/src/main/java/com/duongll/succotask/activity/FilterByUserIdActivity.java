@@ -222,6 +222,9 @@ public class FilterByUserIdActivity extends AppCompatActivity {
                             }
                         });
                     } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listHistory.setAdapter(emptyAdapter);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByUserIdActivity.this);
                         alertDialog.setTitle("Message");
                         alertDialog.setMessage("User don't have any history task in that filter");
@@ -233,17 +236,6 @@ public class FilterByUserIdActivity extends AppCompatActivity {
                         });
                         alertDialog.show();
                     }
-                } else {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByUserIdActivity.this);
-                    alertDialog.setTitle("Message");
-                    alertDialog.setMessage("User don't have any history task in that filter");
-                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alertDialog.show();
                 }
             }
 

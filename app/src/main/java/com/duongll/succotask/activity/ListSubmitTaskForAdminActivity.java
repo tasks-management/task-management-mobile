@@ -52,25 +52,41 @@ public class ListSubmitTaskForAdminActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
-                    TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
-                    taskAdapter.setTaskList(response.body());
-                    listSubmitTask.setAdapter(taskAdapter);
-                    listSubmitTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Task dto = (Task) listSubmitTask.getItemAtPosition(position);
-                            Intent intentDetail;
-                            if (dto.getTaskStatus().equals("SUBMITTED")) {
-                                intentDetail = new Intent(ListSubmitTaskForAdminActivity.this, TaskSubmitDetailActivity.class);
-                            } else {
-                                intentDetail = new Intent(ListSubmitTaskForAdminActivity.this, PendingTaskDetailActivity.class);
+                    if (response.body().size() != 0) {
+                        TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
+                        taskAdapter.setTaskList(response.body());
+                        listSubmitTask.setAdapter(taskAdapter);
+                        listSubmitTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Task dto = (Task) listSubmitTask.getItemAtPosition(position);
+                                Intent intentDetail;
+                                if (dto.getTaskStatus().equals("SUBMITTED")) {
+                                    intentDetail = new Intent(ListSubmitTaskForAdminActivity.this, TaskSubmitDetailActivity.class);
+                                } else {
+                                    intentDetail = new Intent(ListSubmitTaskForAdminActivity.this, PendingTaskDetailActivity.class);
+                                }
+                                intentDetail.putExtra("DTO", dto);
+                                intentDetail.putExtra("user_id", userId);
+                                intentDetail.putExtra("role", role);
+                                startActivity(intentDetail);
                             }
-                            intentDetail.putExtra("DTO", dto);
-                            intentDetail.putExtra("user_id", userId);
-                            intentDetail.putExtra("role", role);
-                            startActivity(intentDetail);
-                        }
-                    });
+                        });
+                    } else {
+                        TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
+                        taskAdapter.setTaskList(new ArrayList<Task>());
+                        ListSubmitTaskForAdminActivity.this.listSubmitTask.setAdapter(taskAdapter);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListSubmitTaskForAdminActivity.this);
+                        alertDialog.setTitle("Message");
+                        alertDialog.setMessage("You don't have any pending task yet");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
+                    }
                 } else {
                     TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
                     taskAdapter.setTaskList(new ArrayList<Task>());
@@ -84,7 +100,7 @@ public class ListSubmitTaskForAdminActivity extends AppCompatActivity {
                 emptyAdapter.setTaskList(new ArrayList<Task>());
                 listSubmitTask.setAdapter(emptyAdapter);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListSubmitTaskForAdminActivity.this);
-                alertDialog.setTitle("Error Message");
+                alertDialog.setTitle("Message");
                 alertDialog.setMessage("You don't have any pending task yet");
                 alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override

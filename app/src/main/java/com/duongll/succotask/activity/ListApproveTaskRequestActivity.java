@@ -51,6 +51,7 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
+                    if (response.body().size() != 0) {
                         TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
                         taskAdapter.setTaskList(response.body());
                         listTask.setAdapter(taskAdapter);
@@ -70,8 +71,21 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                                 startActivity(intentDetail);
                             }
                         });
-                } else {
+                    } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listTask.setAdapter(emptyAdapter);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
+                        alertDialog.setTitle("Message");
+                        alertDialog.setMessage("You don't have any pending task yet");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
+                            }
+                        });
+                        alertDialog.show();
+                    }
                 }
             }
 
@@ -81,7 +95,7 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                 emptyAdapter.setTaskList(new ArrayList<Task>());
                 listTask.setAdapter(emptyAdapter);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
-                alertDialog.setTitle("Error Message");
+                alertDialog.setTitle("Message");
                 alertDialog.setMessage("You don't have any pending task yet");
                 alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override

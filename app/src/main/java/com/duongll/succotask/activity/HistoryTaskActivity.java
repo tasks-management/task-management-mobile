@@ -89,6 +89,9 @@ public class HistoryTaskActivity extends AppCompatActivity {
                             }
                         });
                     } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listTask.setAdapter(emptyAdapter);
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(HistoryTaskActivity.this);
                         alertDialog.setTitle("Message");
                         alertDialog.setMessage("You don't have any history task yet");
@@ -101,6 +104,9 @@ public class HistoryTaskActivity extends AppCompatActivity {
                         alertDialog.show();
                     }
                 } else {
+                    EmptyAdapter emptyAdapter = new EmptyAdapter();
+                    emptyAdapter.setTaskList(new ArrayList<Task>());
+                    listTask.setAdapter(emptyAdapter);
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(HistoryTaskActivity.this);
                     alertDialog.setTitle("Message");
                     alertDialog.setMessage("Cannot get history task");
