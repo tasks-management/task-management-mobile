@@ -126,11 +126,11 @@ public class IndexActivity extends AppCompatActivity {
                             int year = calendar.get(Calendar.YEAR);
                             int currentYear = year - 1900;
                             deadline = new Date(currentYear, month, date);
-                            System.out.println(deadline);
                             if (deadline.equals(task.getEndDate())) {
                                 taskNearExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
                             }
                             if (task.getEndDate().before(currentDay)) {
+                                task.setTaskStatus("EXPIRED");
                                 taskExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
                             }
                         }
@@ -146,16 +146,19 @@ public class IndexActivity extends AppCompatActivity {
                             }
                         }
                         if (message.length() != 0) {
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(IndexActivity.this);
-                            alertDialog.setTitle("Message");
-                            alertDialog.setMessage(message);
-                            alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                            if (!flag) {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(IndexActivity.this);
+                                alertDialog.setTitle("Message");
+                                alertDialog.setMessage(message);
+                                alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-                            alertDialog.show();
+                                    }
+                                });
+                                alertDialog.show();
+                                IndexActivity.this.flag = true;
+                            }
                         }
                         IndexActivity.this.listTask.setAdapter(taskAdapter);
                         listTask.setAdapter(taskAdapter);

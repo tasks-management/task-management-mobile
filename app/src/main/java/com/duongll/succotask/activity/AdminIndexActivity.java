@@ -90,36 +90,55 @@ public class AdminIndexActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body().size() != 0) {
                         List<String> taskNearExpired = new ArrayList<>();
+                        List<String> taskExpired = new ArrayList<>();
                         TaskAdapter taskAdapter = new TaskAdapter();
                         taskAdapter.setTaskList(response.body());
                         Calendar calendar = Calendar.getInstance();
                         Date currentDay = new Date();
-                        Date endDate;
+                        Date deadline;
                         calendar.setTime(currentDay);
-                        calendar.add(Calendar.DATE, 1);
                         currentDay = calendar.getTime();
                         for (Task task : response.body()) {
-                            calendar.setTime(task.getEndDate());
-                            endDate = calendar.getTime();
-                            if (currentDay.after(endDate)) {
-                                taskNearExpired.add("ID: " + task.getId() + ", Name: " + task.getName());
+                            calendar.setTime(currentDay);
+                            calendar.add(Calendar.DATE, 1);
+                            int date = calendar.get(Calendar.DATE);
+                            int month = calendar.get(Calendar.MONTH);
+                            int year = calendar.get(Calendar.YEAR);
+                            int currentYear = year - 1900;
+                            deadline = new Date(currentYear, month, date);
+                            if (deadline.equals(task.getEndDate())) {
+                                taskNearExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
+                            }
+                            if (task.getEndDate().before(currentDay)) {
+                                task.setTaskStatus("EXPIRED");
+                                taskExpired.add("ID: " + task.getId() + " , Name: " + task.getName());
+                            }
+                        }
+                        String message = "";
+                        if (taskExpired.size() != 0) {
+                            for (String s : taskExpired) {
+                                message += s + " is expired. \n";
                             }
                         }
                         if (taskNearExpired.size() != 0) {
-                            String message = "";
                             for (String s : taskNearExpired) {
                                 message += s + " will expired in 24h. \n";
                             }
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminIndexActivity.this);
-                            alertDialog.setTitle("Message");
-                            alertDialog.setMessage(message);
-                            alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                        }
+                        if (message.length() != 0) {
+                            if (!flag) {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminIndexActivity.this);
+                                alertDialog.setTitle("Message");
+                                alertDialog.setMessage(message);
+                                alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                }
-                            });
-                            alertDialog.show();
+                                    }
+                                });
+                                alertDialog.show();
+                                AdminIndexActivity.this.flag = true;
+                            }
                         }
                         listTask.setAdapter(taskAdapter);
                         listTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {

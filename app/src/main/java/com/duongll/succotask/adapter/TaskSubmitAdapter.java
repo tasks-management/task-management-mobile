@@ -48,18 +48,18 @@ public class TaskSubmitAdapter extends BaseAdapter {
         Task task = this.taskList.get(position);
         TextView taskId = convertView.findViewById(R.id.taskIdSubmit);
         TextView taskName = convertView.findViewById(R.id.taskNameSubmit);
-        TextView taskStatus = convertView.findViewById(R.id.txtTaskHandlerSubmit);
+        TextView taskHandler = convertView.findViewById(R.id.txtTaskHandlerSubmit);
         TextView taskDate = convertView.findViewById(R.id.txtTaskDateSubmit);
         if (task.getTaskStatus().equals("PENDING")) {
-            taskStatus.setTextColor(Color.parseColor("#bfbcc0"));
+            taskHandler.setTextColor(Color.parseColor("#bfbcc0"));
         } else if (task.getTaskStatus().equals("SUBMITTED")) {
-            taskStatus.setTextColor(Color.parseColor("#eae265"));
+            taskHandler.setTextColor(Color.parseColor("#eae265"));
         } else {
-            taskStatus.setTextColor(Color.parseColor("#bfbcc0"));
+            taskHandler.setTextColor(Color.parseColor("#bfbcc0"));
         }
         taskId.setText(task.getId() + "");
         taskName.setText(task.getName());
-        taskStatus.setText(task.getHandlerId().getId() + " - " + task.getHandlerId().getName());
+        taskHandler.setText(task.getHandlerId().getId() + " - " + task.getHandlerId().getName());
         String[] strTmpStart = task.getStartDate().toString().split(" ");
         String dayFrom = strTmpStart[2];
         String monthFrom = strTmpStart[1];
