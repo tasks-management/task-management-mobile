@@ -50,13 +50,6 @@ public class TaskSubmitAdapter extends BaseAdapter {
         TextView taskName = convertView.findViewById(R.id.taskNameSubmit);
         TextView taskHandler = convertView.findViewById(R.id.txtTaskHandlerSubmit);
         TextView taskDate = convertView.findViewById(R.id.txtTaskDateSubmit);
-        if (task.getTaskStatus().equals("PENDING")) {
-            taskHandler.setTextColor(Color.parseColor("#bfbcc0"));
-        } else if (task.getTaskStatus().equals("SUBMITTED")) {
-            taskHandler.setTextColor(Color.parseColor("#eae265"));
-        } else {
-            taskHandler.setTextColor(Color.parseColor("#bfbcc0"));
-        }
         taskId.setText(task.getId() + "");
         taskName.setText(task.getName());
         taskHandler.setText(task.getHandlerId().getId() + " - " + task.getHandlerId().getName());
