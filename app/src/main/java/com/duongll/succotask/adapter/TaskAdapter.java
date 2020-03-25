@@ -50,22 +50,21 @@ public class TaskAdapter extends BaseAdapter {
         TextView taskName = convertView.findViewById(R.id.taskName);
         TextView taskStatus = convertView.findViewById(R.id.taskStatus);
         TextView taskDate = convertView.findViewById(R.id.txtTaskDate);
-        LinearLayout linearLayout = convertView.findViewById(R.id.layoutTaskListItem);
         taskId.setText(task.getId() + "");
         taskName.setText(task.getName());
         String status = task.getTaskStatus();
         if (status.equals("SUBMITTED")) {
-            linearLayout.setBackgroundColor(Color.parseColor("#eae265"));
+            taskStatus.setTextColor(Color.parseColor("#eae265"));
         } else if (status.equals("SUCCEED")) {
-            linearLayout.setBackgroundColor(Color.parseColor("#9fe365"));
+            taskStatus.setTextColor(Color.parseColor("#9fe365"));
         } else if (status.equals("FAIL")) {
-            linearLayout.setBackgroundColor(Color.parseColor("#ee642e"));
+            taskStatus.setTextColor(Color.parseColor("#ee642e"));
         } else if (status.equals("IN PROGRESS")){
-            linearLayout.setBackgroundColor(Color.parseColor("#309dcd"));
+            taskStatus.setTextColor(Color.parseColor("#309dcd"));
         } else if (status.equals("PENDING")){
-            linearLayout.setBackgroundColor(Color.parseColor("#b1b3b1"));
+            taskStatus.setTextColor(Color.parseColor("#b1b3b1"));
         } else {
-            linearLayout.setBackgroundColor(Color.parseColor("#ee642e"));
+            taskStatus.setTextColor(Color.parseColor("#ee642e"));
         }
         taskStatus.setText(status);
         String[] strTmpStart = task.getStartDate().toString().split(" ");
