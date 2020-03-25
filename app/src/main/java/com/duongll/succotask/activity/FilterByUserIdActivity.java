@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.duongll.succotask.R;
+import com.duongll.succotask.adapter.EmptyAdapter;
 import com.duongll.succotask.adapter.TaskAdapter;
 import com.duongll.succotask.api.TaskApi;
 import com.duongll.succotask.api.UserApi;
@@ -248,6 +249,9 @@ public class FilterByUserIdActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                EmptyAdapter emptyAdapter = new EmptyAdapter();
+                emptyAdapter.setTaskList(new ArrayList<Task>());
+                listHistory.setAdapter(emptyAdapter);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByUserIdActivity.this);
                 alertDialog.setTitle("Message");
                 alertDialog.setMessage("You don't have any history task yet");

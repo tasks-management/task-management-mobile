@@ -11,9 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.duongll.succotask.R;
+import com.duongll.succotask.adapter.EmptyAdapter;
 import com.duongll.succotask.adapter.TaskSubmitAdapter;
 import com.duongll.succotask.api.TaskApi;
 import com.duongll.succotask.config.APIConfig;
@@ -51,7 +53,6 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                         TaskSubmitAdapter taskAdapter = new TaskSubmitAdapter();
                         taskAdapter.setTaskList(response.body());
-                        ListApproveTaskRequestActivity.this.listTask.setAdapter(taskAdapter);
                         listTask.setAdapter(taskAdapter);
                         listTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -70,21 +71,15 @@ public class ListApproveTaskRequestActivity extends AppCompatActivity {
                             }
                         });
                 } else {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
-                    alertDialog.setTitle("Error Message");
-                    alertDialog.setMessage("Cannot list any pending task");
-                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
-                    alertDialog.show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                EmptyAdapter emptyAdapter = new EmptyAdapter();
+                emptyAdapter.setTaskList(new ArrayList<Task>());
+                listTask.setAdapter(emptyAdapter);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListApproveTaskRequestActivity.this);
                 alertDialog.setTitle("Error Message");
                 alertDialog.setMessage("You don't have any pending task yet");

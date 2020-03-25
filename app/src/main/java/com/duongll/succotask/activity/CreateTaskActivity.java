@@ -84,6 +84,7 @@ public class CreateTaskActivity extends AppCompatActivity {
             Call<List<User>> callList;
             if (role.equals("manager")) {
                 callList = userApi.getAllUserInTeam(userId);
+                dataSrc.add("Yourself - " + userId);
             } else {
                 callList = userApi.getAllUserForAdmin();
             }
@@ -220,6 +221,9 @@ public class CreateTaskActivity extends AppCompatActivity {
         Long creator = Long.parseLong(edtCreator.getText().toString());
         String[] strTmp = selectedHandlerId.split(" - ");
         Long handler = Long.parseLong(strTmp[1]);
+        if (role.equals("manager") && userId == handler) {
+            status = "PENDING";
+        }
         CreateTaskDto taskDto = new CreateTaskDto(name, description, process,status, searchFrom.toString(), searchTo.toString(), creator, handler);
         Retrofit retrofit = APIConfig.createRetrofitForAPI();
         TaskApi taskApi = APIConfig.getAPIFromClass(retrofit, TaskApi.class);

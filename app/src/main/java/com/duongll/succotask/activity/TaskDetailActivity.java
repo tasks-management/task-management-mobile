@@ -135,10 +135,10 @@ public class TaskDetailActivity extends AppCompatActivity implements FinishDialo
     public void onSuccess(Bitmap bitmap) {
         String status;
         if (btnSubmit.isEnabled()) {
-            if (role.equals("user")) {
-                status = "SUBMITTED";
-            } else {
+            if (role.equals("admin")) {
                 status = "SUCCEED";
+            } else {
+                status = "SUBMITTED";
             }
         } else {
             status = "FAIL";

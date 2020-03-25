@@ -51,4 +51,7 @@ public interface TaskApi {
     @PUT(value = "/api/v1/task/{id}/modify")
     Call<Task> modifyUserPendingTask(@Path("id") Long taskId,
                                      @Body ModifyTaskDto modifyTaskDto);
+
+    @GET(value = "/api/v1/task/admin/{id}/submit")
+    Call<List<Task>> getAllSubmittedTaskForAdmin(@Path("id") Long userId);
 }

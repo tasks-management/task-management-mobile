@@ -13,8 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.duongll.succotask.adapter.EmptyAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.duongll.succotask.R;
@@ -114,6 +116,9 @@ public class HistoryTaskActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                EmptyAdapter emptyAdapter = new EmptyAdapter();
+                emptyAdapter.setTaskList(new ArrayList<Task>());
+                listTask.setAdapter(emptyAdapter);
                 if (!flag) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(HistoryTaskActivity.this);
                     alertDialog.setTitle("Message");

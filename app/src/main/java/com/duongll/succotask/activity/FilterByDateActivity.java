@@ -14,11 +14,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.duongll.succotask.R;
+import com.duongll.succotask.adapter.EmptyAdapter;
 import com.duongll.succotask.adapter.TaskAdapter;
 import com.duongll.succotask.api.TaskApi;
 import com.duongll.succotask.config.APIConfig;
@@ -153,6 +155,9 @@ public class FilterByDateActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                EmptyAdapter emptyAdapter = new EmptyAdapter();
+                emptyAdapter.setTaskList(new ArrayList<Task>());
+                listHistory.setAdapter(emptyAdapter);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(FilterByDateActivity.this);
                 alertDialog.setTitle("Message");
                 alertDialog.setMessage("You don't have any history task in that from-to date");

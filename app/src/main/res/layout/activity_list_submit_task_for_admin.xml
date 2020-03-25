@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ListApproveTaskRequestActivity">
+    tools:context=".activity.ListSubmitTaskForAdminActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:text="List Submit and Pending Task From User" />
 
     <ListView
-        android:id="@+id/listFinishTask"
+        android:id="@+id/listFinishTaskAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

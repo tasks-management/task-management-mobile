@@ -1,5 +1,6 @@
 package com.duongll.succotask.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,14 @@ public class TaskSubmitAdapter extends BaseAdapter {
         TextView taskName = convertView.findViewById(R.id.taskNameSubmit);
         TextView taskStatus = convertView.findViewById(R.id.txtTaskHandlerSubmit);
         TextView taskDate = convertView.findViewById(R.id.txtTaskDateSubmit);
+        LinearLayout layout = convertView.findViewById(R.id.layoutSubmittedItem);
+        if (task.getTaskStatus().equals("PENDING")) {
+            layout.setBackgroundColor(Color.parseColor("#bfbcc0"));
+        } else if (task.getTaskStatus().equals("SUBMITTED")) {
+            layout.setBackgroundColor(Color.parseColor("#eae265"));
+        } else {
+            layout.setBackgroundColor(Color.parseColor("#bfbcc0"));
+        }
         taskId.setText(task.getId() + "");
         taskName.setText(task.getName());
         taskStatus.setText(task.getHandlerId().getId() + " - " + task.getHandlerId().getName());

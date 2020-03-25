@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.duongll.succotask.adapter.EmptyAdapter;
 import com.duongll.succotask.api.UserApi;
 import com.duongll.succotask.entity.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -86,6 +88,7 @@ public class AdminIndexActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
+                    if (response.body().size() != 0) {
                         List<String> taskNearExpired = new ArrayList<>();
                         TaskAdapter taskAdapter = new TaskAdapter();
                         taskAdapter.setTaskList(response.body());
@@ -95,7 +98,7 @@ public class AdminIndexActivity extends AppCompatActivity {
                         calendar.setTime(currentDay);
                         calendar.add(Calendar.DATE, 1);
                         currentDay = calendar.getTime();
-                        for (Task task: response.body()) {
+                        for (Task task : response.body()) {
                             calendar.setTime(task.getEndDate());
                             endDate = calendar.getTime();
                             if (currentDay.after(endDate)) {
@@ -105,7 +108,7 @@ public class AdminIndexActivity extends AppCompatActivity {
                         if (taskNearExpired.size() != 0) {
                             String message = "";
                             for (String s : taskNearExpired) {
-                                message += s + " will expired in 24h. \n" ;
+                                message += s + " will expired in 24h. \n";
                             }
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminIndexActivity.this);
                             alertDialog.setTitle("Message");
@@ -118,7 +121,6 @@ public class AdminIndexActivity extends AppCompatActivity {
                             });
                             alertDialog.show();
                         }
-                        AdminIndexActivity.this.listTask.setAdapter(taskAdapter);
                         listTask.setAdapter(taskAdapter);
                         listTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -131,11 +133,23 @@ public class AdminIndexActivity extends AppCompatActivity {
                                 startActivity(intentDetail);
                             }
                         });
+                    } else {
+                        EmptyAdapter emptyAdapter = new EmptyAdapter();
+                        emptyAdapter.setTaskList(new ArrayList<Task>());
+                        listTask.setAdapter(emptyAdapter);
+                    }
+                } else {
+                    EmptyAdapter emptyAdapter = new EmptyAdapter();
+                    emptyAdapter.setTaskList(new ArrayList<Task>());
+                    listTask.setAdapter(emptyAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                EmptyAdapter emptyAdapter = new EmptyAdapter();
+                emptyAdapter.setTaskList(new ArrayList<Task>());
+                listTask.setAdapter(emptyAdapter);
                 if (!flag) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminIndexActivity.this);
                     alertDialog.setTitle("Message");

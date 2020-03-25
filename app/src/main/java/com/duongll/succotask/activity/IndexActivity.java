@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.duongll.succotask.adapter.EmptyAdapter;
 import com.duongll.succotask.api.UserApi;
 import com.duongll.succotask.config.AppConfig;
 import com.duongll.succotask.entity.User;
@@ -172,6 +173,9 @@ public class IndexActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                EmptyAdapter emptyAdapter = new EmptyAdapter();
+                emptyAdapter.setTaskList(new ArrayList<Task>());
+                listTask.setAdapter(emptyAdapter);
                 if (!flag) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IndexActivity.this);
                     alertDialog.setTitle("Message");
