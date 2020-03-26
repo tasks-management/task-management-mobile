@@ -152,6 +152,5 @@ public class CreateUserActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-        finish();
     }
 }

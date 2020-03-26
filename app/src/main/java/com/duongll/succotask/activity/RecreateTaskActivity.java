@@ -127,49 +127,107 @@ public class RecreateTaskActivity extends AppCompatActivity {
             Call<List<User>> callList;
             if (role.equals("manager")) {
                 callList = userApi.getAllUserInTeam(userId);
-            } else {
-                callList = userApi.getAllUserForAdmin();
-            }
-            callList.enqueue(new Callback<List<User>>() {
-                @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    if (response.code() == 200) {
-                        List<String> dataSrcHandler = new ArrayList<>();
-                        for(User result: response.body()) {
-                            dataSrcHandler.add(result.getName() + " - " + result.getId());
-                        }
-                        ArrayAdapter<String> dataAdapter =
-                                new ArrayAdapter<>(RecreateTaskActivity.this, android.R.layout.simple_spinner_item, dataSrcHandler);
-                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spHandler.setAdapter(dataAdapter);
-                        spHandler.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                RecreateTaskActivity.this.selectedHandler = parent.getItemAtPosition(position).toString();
+                callList.enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        if (response.code() == 200) {
+                            List<String> dataSrcHandler = new ArrayList<>();
+                            for(User result: response.body()) {
+                                dataSrcHandler.add(result.getName() + " - " + result.getId());
                             }
+                            ArrayAdapter<String> dataAdapter =
+                                    new ArrayAdapter<>(RecreateTaskActivity.this, android.R.layout.simple_spinner_item, dataSrcHandler);
+                            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spHandler.setAdapter(dataAdapter);
+                            spHandler.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    RecreateTaskActivity.this.selectedHandler = parent.getItemAtPosition(position).toString();
+                                }
 
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+                                    Toast.makeText(RecreateTaskActivity.this, "Must user id for searching", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecreateTaskActivity.this);
+                        alertDialog.setTitle("Error Message");
+                        alertDialog.setMessage("Can not get user in handler");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                                Toast.makeText(RecreateTaskActivity.this, "Must user id for searching", Toast.LENGTH_SHORT).show();
+                            public void onClick(DialogInterface dialog, int which) {
+
                             }
                         });
+                        alertDialog.show();
                     }
-                }
+                });
+            } else if (role.equals("admin")){
+                callList = userApi.getAllUserForAdmin();
+                callList.enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        if (response.code() == 200) {
+                            List<String> dataSrcHandler = new ArrayList<>();
+                            for(User result: response.body()) {
+                                dataSrcHandler.add(result.getName() + " - " + result.getId());
+                            }
+                            ArrayAdapter<String> dataAdapter =
+                                    new ArrayAdapter<>(RecreateTaskActivity.this, android.R.layout.simple_spinner_item, dataSrcHandler);
+                            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spHandler.setAdapter(dataAdapter);
+                            spHandler.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    RecreateTaskActivity.this.selectedHandler = parent.getItemAtPosition(position).toString();
+                                }
 
-                @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecreateTaskActivity.this);
-                    alertDialog.setTitle("Error Message");
-                    alertDialog.setMessage("Can not get user in handler");
-                    alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+                                    Toast.makeText(RecreateTaskActivity.this, "Must user id for searching", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                    });
-                    alertDialog.show();
-                }
-            });
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecreateTaskActivity.this);
+                        alertDialog.setTitle("Error Message");
+                        alertDialog.setMessage("Can not get user in handler");
+                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
+            } else {
+                List<String> dataSrcHandler = new ArrayList<>();
+                dataSrcHandler.add("Yourself - " + userId);
+                ArrayAdapter<String> dataAdapter =
+                        new ArrayAdapter<>(RecreateTaskActivity.this, android.R.layout.simple_spinner_item, dataSrcHandler);
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spHandler.setAdapter(dataAdapter);
+                spHandler.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        RecreateTaskActivity.this.selectedHandler = parent.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        Toast.makeText(RecreateTaskActivity.this, "Must user id for searching", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 
