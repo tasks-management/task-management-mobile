@@ -73,36 +73,19 @@ public class HistoryTaskActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.code() == 200) {
-                    if (response.body().size() != 0) {
-                        TaskAdapter adapter = new TaskAdapter();
-                        adapter.setTaskList(response.body());
-                        listTask = findViewById(R.id.listHistoryTask);
-                        listTask.setAdapter(adapter);
-                        listTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Task dto = (Task) listTask.getItemAtPosition(position);
-                                Intent intentDetail = new Intent(HistoryTaskActivity.this, HistoryTaskDetailActivity.class);
-                                intentDetail.putExtra("DTO", dto);
-                                intentDetail.putExtra("role", role);
-                                startActivity(intentDetail);
-                            }
-                        });
-                    } else {
-                        EmptyAdapter emptyAdapter = new EmptyAdapter();
-                        emptyAdapter.setTaskList(new ArrayList<Task>());
-                        listTask.setAdapter(emptyAdapter);
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(HistoryTaskActivity.this);
-                        alertDialog.setTitle("Message");
-                        alertDialog.setMessage("You don't have any history task yet");
-                        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
-                    }
+                    TaskAdapter adapter = new TaskAdapter();
+                    adapter.setTaskList(response.body());
+                    listTask = findViewById(R.id.listHistoryTask);
+                    listTask.setAdapter(adapter);
+                    listTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Task dto = (Task) listTask.getItemAtPosition(position);
+                            Intent intentDetail = new Intent(HistoryTaskActivity.this, HistoryTaskDetailActivity.class);
+                            intentDetail.putExtra("DTO", dto);
+                            intentDetail.putExtra("role", role);
+                            startActivity(intentDetail); }
+                    });
                 } else {
                     EmptyAdapter emptyAdapter = new EmptyAdapter();
                     emptyAdapter.setTaskList(new ArrayList<Task>());
